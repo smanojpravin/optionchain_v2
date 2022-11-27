@@ -109,7 +109,7 @@ DATABASES = {
 
 
 CELERY_IMPORTS = (
-    'myapp.tasks',
+    'orderticket.tasks',
 )
 
 # DATABASES = {
