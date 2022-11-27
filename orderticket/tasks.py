@@ -400,15 +400,15 @@ def create_currency():
         pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00))
 
         #LiveEquityResult.objects.all().delete()
-        LiveOITotalAllSymbol.objects.filter(time__lte = pastDate).delete()
+        # LiveOITotalAllSymbol.objects.filter(time__lte = pastDate).delete()
         # # Deleting past historical data in the database
-        HistoryOIChange.objects.filter(time__lte = pastDate).delete()
-        HistoryOITotal.objects.filter(time__lte = pastDate).delete()
-        HistoryOIPercentChange.objects.filter(time__lte = pastDate).delete()
+        # HistoryOIChange.objects.filter(time__lte = pastDate).delete()
+        # HistoryOITotal.objects.filter(time__lte = pastDate).delete()
+        # HistoryOIPercentChange.objects.filter(time__lte = pastDate).delete()
         # Deleting live data
-        LiveOITotal.objects.filter(time__lte = pastDate).delete()
-        LiveOIChange.objects.filter(time__lte = pastDate).delete()
-        LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
+        # LiveOITotal.objects.filter(time__lte = pastDate).delete()
+        # LiveOIChange.objects.filter(time__lte = pastDate).delete()
+        # LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
        
         value1 = LiveOIChange.objects.filter(symbol=item)
         
