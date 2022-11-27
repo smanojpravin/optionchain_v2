@@ -30,7 +30,9 @@ from django.contrib.auth.models import User
 import csv
 from django.http import HttpResponse
 from django.db.models import Count, F, Value
-
+from datetime import datetime as equ_timing
+from datetime import time as equ_time
+from pytz import timezone
 
 def sample(request):
 
@@ -664,8 +666,12 @@ def equity(request):
     callcrossedodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Call Crossed")
     putcrossedodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Put Crossed")
 
-    current_time = LiveSegment.objects.order_by('time')[:1]
-    equity_timing = current_time[0].time
+    
+    try:
+        current_time = LiveSegment.objects.order_by('time')[:1]
+        equity_timing = current_time[0].time
+    except:
+        equity_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
     return render(request,"equity.html",{'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
@@ -766,7 +772,7 @@ def home(request):
     'PVR', 'RAIN', 'RAMCOCEM', 'SBICARD', 'SBILIFE', 'SBIN', 'SHREECEM', 'SRF', 'SRTRANSFIN', 'SUNPHARMA', 'SUNTV', 
     'SYNGENE', 'TATACHEM', 'TATACOMM', 'TATACONSUM', 'TATAMOTORS', 'TCS', 'TECHM', 'TITAN', 'TORNTPOWER', 'TRENT', 
     'TVSMOTOR', 'UBL', 'ULTRACEMCO', 'UPL', 'VEDL', 'VOLTAS', 'WHIRLPOOL', 'WIPRO', 'ZEEL']
-    
+
     return render(request,'ordersubmission.html',{'fnolist':fnolist,'latestInstruction':latestInstruction})
 
 
