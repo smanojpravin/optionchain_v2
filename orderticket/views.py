@@ -736,6 +736,13 @@ def optionChain(request):
         print(item.put_ceoi_total)
     print(early_change_oi)
     print('*********************************** Live oi change *************************************')
+    
+    
+    try:
+        current_time = LiveOITotalAllSymbol.objects.order_by('-time')[:1]
+        option_timing = current_time[0].time
+    except:
+        option_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
     # lot_dict = {'ACC': 250, 'AMBUJACEM': 1800, 'AARTIIND': 850, 'ASTRAL': 275, 'AUBANK': 1000, 'ABBOTINDIA': 40, 'ABFRL': 2600, 'ALKEM': 200, 'AMARAJABAT': 1000, 'APOLLOHOSP': 125, 'ATUL': 75, 'AUROPHARMA': 1000, 'AXISBANK': 1200, 'BAJAJFINSV': 50, 'BAJFINANCE': 125, 'CHOLAFIN': 1250, 'BALRAMCHIN': 1600, 'BANDHANBNK': 1800, 'BATAINDIA': 275, 'BERGEPAINT': 1100, 'BHARTIARTL': 950, 'BIOCON': 2300, 'ASIANPAINT': 200, 'BOSCHLTD': 50, 'BPCL': 1800, 'BSOFT': 1300, 'CANFINHOME': 975, 'CIPLA': 650, 'COFORGE': 150, 'BAJAJ-AUTO': 250, 'COLPAL': 350, 'CONCOR': 1000, 'COROMANDEL': 700, 'DEEPAKNTR': 250, 'DIVISLAB': 150, 'DLF': 1650, 'DRREDDY': 125, 'BHARATFORG': 1000, 'ESCORTS': 550, 'GLENMARK': 1150, 'GNFC': 1300, 'GODREJPROP': 325, 'GRANULES': 2000, 'GUJGASLTD': 1250, 'HAL': 475, 'HCLTECH': 700, 'DABUR': 1250, 'HDFC': 300, 'HDFCAMC': 300, 'HDFCBANK': 550, 'HDFCLIFE': 1100, 'GRASIM': 475, 'HINDPETRO': 2700, 'HINDUNILVR': 300, 'HONAUT': 15, 'ICICIBANK': 1375, 'HINDALCO': 1075, 'INDIAMART': 150, 'INDUSINDBK': 900, 'INDUSTOWER': 2800, 'INFY': 300, 'INTELLECT': 750, 'IPCALAB': 650, 'IRCTC': 875, 'JINDALSTEL': 1250, 'JUBLFOOD': 1250, 'KOTAKBANK': 400, 'LALPATHLAB': 250, 'LAURUSLABS': 900, 'LICHSGFIN': 2000, 'LT': 300, 'LTI': 150, 'LTTS': 200, 'LUPIN': 850, 'MARICO': 1200, 'MARUTI': 100, 'MCDOWELL-N': 625, 'ADANIPORTS': 1250, 'MFSL': 650, 'MGL': 800, 'MINDTREE': 200, 'MPHASIS': 175, 'MRF': 10, 'MUTHOOTFIN': 375, 'NAM-INDIA': 1600, 'NAUKRI': 125, 'NAVINFLUOR': 225, 'OFSS': 200, 'ICICIPRULI': 1500, 'PAGEIND': 15, 'PERSISTENT': 150, 'PIDILITIND': 250, 'PIIND': 250, 'PVR': 407, 'RAIN': 3500, 'SBICARD': 800, 'SBILIFE': 750, 'SHREECEM': 25, 'SIEMENS': 275, 'SRF': 375, 'SUNTV': 1500, 'TATACOMM': 500, 'TATACONSUM': 900, 'TATAMOTORS': 1425, 'DALBHARAT': 500, 'TATASTEEL': 4250, 'TECHM': 600, 'TORNTPHARM': 500, 
     #     'TORNTPOWER': 1500, 'TRENT': 725, 'TVSMOTOR': 1400, 'UPL': 1300, 'WHIRLPOOL': 350, 'WIPRO': 1000, 'ZEEL': 3000, 'JSWSTEEL': 1350, 'OBEROIRLTY': 700, 'RELIANCE': 250, 'CHAMBLFERT': 1500, 'CROMPTON': 1500, 'CUMMINSIND': 600, 'DELTACORP': 2300, 'DIXON': 125, 'TATACHEM': 1000, 'GODREJCP': 1000, 'HAVELLS': 500, 'ICICIGI': 425, 'IGL': 1375, 'INDIGO': 300, 'JKCEMENT': 250, 'SUNPHARMA': 700, 'MCX': 400, 'POLYCAB': 300, 'RAMCOCEM': 850, 'SRTRANSFIN': 600, 'SYNGENE': 1000, 'UBL': 400, 'ULTRACEMCO': 100, 'VOLTAS': 500, 'ZYDUSLIFE': 1800, 'SBIN': 1500, 'GSPL': 2500,'APOLLOTYRE':3500,'BEL':3800,'CANBK':2700,'COALINDIA':4200,'HINDCOPPER':4300,'IBULHSGFIN':4000,'IEX':3750,'INDHOTEL':4022,'INDIACEM':2900,'ITC':3200,'M&MFIN':4000,'MOTHERSON':4500,'NATIONALUM':4250,'NMDC':3350,'ONGC':3850,'PETRONET':3000,'POWERGRID':2700,'TATAPOWER':3375}
@@ -744,7 +751,7 @@ def optionChain(request):
     symbol_lot = lot_dict[symbol]
     
     if LiveOI:
-        return render(request, 'optionChainSingleSymbol.html', {'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
+        return render(request, 'optionChainSingleSymbol.html', {'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
     else:
         return render(request, 'optionChainNoData.html')
 
