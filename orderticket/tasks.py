@@ -527,8 +527,16 @@ def create_currency():
 
     sampleDict = {}
     count=1
+    connection_check = ''
     for symbol in fnolist:
         try:
+            if connection_check == 'start':
+                # Graceful exit
+                td_obj.disconnect()
+                td_obj.disconnect()
+            else:
+                print("Proper graceful exit")
+
             print(f"############################################  {symbol} ###############################")
             expiry = "29-Dec-2022"
             dte = dt.strptime(expiry, '%d-%b-%Y')
@@ -536,6 +544,7 @@ def create_currency():
             first_chain = td_obj.start_option_chain( symbol , dt(dte.year , dte.month , dte.day) ,chain_length = 75)
 
             te.sleep(2)
+            connection_check == 'start'
 
             df = first_chain.get_option_chain()
             first_chain.stop_option_chain()
@@ -546,6 +555,7 @@ def create_currency():
 
             if optionChainprocess(df,symbol,dte) == False:
                 continue
+            connection_check == 'end'
 
         except websocket.WebSocketConnectionClosedException as e:
             print('This caught the websocket exception in optionchain realtime')
