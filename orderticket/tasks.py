@@ -26,12 +26,12 @@ def create_currency():
 
     from datetime import datetime, time
     # ----- old data deletion ----
-    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00)).time()
-    nsepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00)).date()
+    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
+    nsepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).date()
     LiveSegment.objects.filter(time__lte = pastDate).delete()
     LiveSegment.objects.filter(date__lt = nsepadDate).delete()
-    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00))
-    segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00)).time()
+    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16))
+    segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
 
     #LiveEquityResult.objects.all().delete()
     TestEquityResult.objects.filter(date__lte = pastDate).delete()
@@ -397,7 +397,7 @@ def create_currency():
         
         
         from datetime import datetime, time
-        pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(6,00))
+        pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16))
 
         #LiveEquityResult.objects.all().delete()
         # LiveOITotalAllSymbol.objects.filter(time__lte = pastDate).delete()
