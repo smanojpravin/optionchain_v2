@@ -668,12 +668,20 @@ def equity(request):
 
     
     try:
+        current_time = LiveOITotalAllSymbol.objects.order_by('-time')[:1]
+        option_timing = current_time[0].time
+        option_symbol = current_time[0].symbol
+    except:
+        option_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
+        option_symbol = ''
+
+    try:
         current_time = LiveSegment.objects.order_by('time')[:1]
         equity_timing = current_time[0].time
     except:
         equity_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
-    return render(request,"equity.html",{'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+    return render(request,"equity.html",{'option_symbol':option_symbol,'option_timing':option_timing,'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 #5 Option chain Section - selected symbol calculation
 def optionChain(request):

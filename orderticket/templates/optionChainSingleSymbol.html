@@ -6,6 +6,9 @@
     font-size: 12px
     }
 
+    .pt-md-5 {
+    padding-top: 0rem!important;
+}
 
 </style>
 {% comment %} <div style="text-align:center">
@@ -26,7 +29,83 @@ Gap:
 </div>     
 {% endcomment %}
 
-{% for record in OITotalValue %}
+<div class="fixTableHeadFirstData">
+  <table class="table-striped">
+    <thead>
+            <th><span>Symbol</span></th>
+            <!-- <th><span>Expiry</span></th> -->
+            <th style="background-color:lightgrey;"><span>Strike</span></th>
+            <th><span>Lot</span></th>
+            <th><span>result</span></th>
+            <th><span>open</span></th>
+            <th style="background-color:lightgreen;"><span>high</span></th>
+            <th style="background-color:lightpink;"><span>low</span></th>
+            <th><span>pre. call</span></th>
+            <th style="background-color:lightgoldenrodyellow;"><span>ltp</span></th>
+            <th><span>time</span></th>
+            <th><span>diff</span></th>
+            </tr>
+
+    </thead>
+
+    <tbody>
+                      <tr>
+                      <td style="width:2%" >
+                        <h2 style="text-align:center;color:black;font-size:small" class="badge bg-warning text-wrap">{{ symbol }} </h2>
+                      </td>
+                      <!-- <td style="width:2%"><b>{{ OITotalValue.0.expiry }}<b></td> -->
+                      <td style="width:2%;background-color:lightgrey"><b>{{ OITotalValue.0.strikegap }}<b></td>
+                      <td style="width:2%"><b>{{ symbol_lot }}<b></td>
+                      <td style="width:2%"> 
+                        {% for animal in liveEqui %}
+                                  {% if "Call" in animal.strike %}
+                                    {% if animal.section|divisibleby:2%}
+                                    <!-- BUY -->
+                                    <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">BUY </h2>
+                                    {% else %}
+                                    <!-- SELL -->
+                                    <h2 style="text-align:center;color:white;font-size:small" class="badge bg-danger text-wrap">SELL</h2>
+                                    {% endif %}
+                                  {% else %}
+                                  {% if animal.section|divisibleby:2%}
+                                  <!-- SELL -->
+                                  <h2 style="text-align:center;color:white;font-size:small" class="badge bg-danger text-wrap">SELL</h2>
+                                  {% else %}
+                                  <!-- BUY -->
+                                  <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">BUY </h2>
+                                  {% endif %}
+                                  {% endif %}
+                          {% endfor %}
+                      </td>
+                      <td style="width:2%;background-color:white;">{{liveEqui.0.open}}</td>
+                      <td style="width:2%;background-color:lightgreen;">{{liveEqui.0.high}}</td>
+                      <td style="width:2%;background-color:lightpink;">{{liveEqui.0.low}}</td>
+                      <td style="width:2%;background-color:white;">{{liveEqui.0.prev_day_close}}</td>
+                      <td style="width:2%;background-color:lightgoldenrodyellow;">{{liveEqui.0.ltp}}</td>
+                      <td style="width:2%">{{liveEqui.0.time}}</td>
+                      <td style="width:2%">{{liveEqui.0.section}} -           
+                        {% if "Call" in value.strike %}
+                        <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">{{ liveEqui.0.strike }} </h2>
+                        {% else %}
+                        <h2 style="text-align:center;color:white;font-size:small" class="badge bg-danger text-wrap">{{ liveEqui.0.strike }} </h2>
+                        {% endif %}
+                      </td>
+
+                        <!-- <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1 }}</td>
+                        {% if record.call1 > record.put2 %}
+                        <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color:#C8EFD5"><i class="fa fa-cog" style="color:blue;font-size: smaller;" aria-hidden="true"></i></td>
+                        {% else %}
+                        <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td>
+                        {% endif %}
+                        <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td>
+                        <td style="width:2%;text-align:center;">{{ record.put1 }}</td> -->
+                      </tr>
+    </tbody>
+      
+  </table>
+</div>
+
+<!-- {% for record in OITotalValue %}
 <nav aria-label="breadcrumb">
 
               <ol class="breadcrumb">
@@ -67,7 +146,6 @@ Gap:
                 <div class="div-container">
                   <span class="top" style="text-align:center;color: black;"><b>Result: </b></span>
                   {% comment %} <span class="bottom">{{ value.prev_day_close }}</span> {% endcomment %}
-                  <!-- <h2 style="text-align:center;color:black;b-color:pink;font-size:medium;" class="btn alert-warning">{{dateToday}} -->
                     {% for animal in liveEqui %}
                     {% if "Call" in animal.strike %}
                       {% if animal.section|divisibleby:2%}
@@ -84,7 +162,7 @@ Gap:
                     {% endif %}
                   {% endfor %}
                 </div>
-              </li>
+              </li>  -->
               <!-- <li class="breadcrumb-item">
                 <div class="div-container">
                   <span class="top" style="text-align:center;color: black;"><b></b></span>
@@ -127,91 +205,82 @@ Gap:
 
                 </div>
 
-                </li> -->
+                </li> 
 
               </ol>
 </nav>
-            {% endfor %}
-            {% for value in liveEqui %}
+-->
+<!-- {% endfor %}
+{% for value in liveEqui %} -->
+<!--
+<nav aria-label="breadcrumb">
 
-            <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
 
-              <ol class="breadcrumb">
+    {% comment %} <li class="breadcrumb-item"> {% endcomment %}
+    {% comment %} <button type="submit" class="btn btn-warning"><b>{{ key }}</b></button> {% endcomment %}
+    {% comment %} <button type="submit" id="button_1" class="btn btn-warning" value="Manoj"><b>{{ key }}</b></button> {% endcomment %}
+    {% comment %} <button id="1" name="1" class="btn btn-warning" value="{{ value.symbol }}">{{ value.symbol }}</button> {% endcomment %}
+    {% comment %} <span class="badge badge-warning"></span> {% endcomment %}
+    
+    {% comment %} </li> {% endcomment %}
 
-                {% comment %} <li class="breadcrumb-item"> {% endcomment %}
-                {% comment %} <button type="submit" class="btn btn-warning"><b>{{ key }}</b></button> {% endcomment %}
-                {% comment %} <button type="submit" id="button_1" class="btn btn-warning" value="Manoj"><b>{{ key }}</b></button> {% endcomment %}
-                {% comment %} <button id="1" name="1" class="btn btn-warning" value="{{ value.symbol }}">{{ value.symbol }}</button> {% endcomment %}
-                {% comment %} <span class="badge badge-warning"></span> {% endcomment %}
-                
-                {% comment %} </li> {% endcomment %}
-
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;"><b>Open</b></span>
-                  <span class="bottom" style="color: black;">{{ value.open }}</span>
-                </div>
-                </li>
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;"><b>High</b></span>
-                  <span class="bottom" style="color: black;">{{ value.high }} </span>
-                  <!-- <svg width="16" height="16" style="fill: green;" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
-                  </svg> -->
-                </div>
-                </li>
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;"><b>Low</b></span>
-                  <span class="bottom" style="color: black;">{{ value.low }}</span>
-                  <!-- <svg width="16" height="16" style="fill: red;" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-                  </svg> -->
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;"><b>Open</b></span>
+      <span class="bottom" style="color: black;">{{ value.open }}</span>
+    </div>
+    </li>
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;"><b>High</b></span>
+      <span class="bottom" style="color: black;">{{ value.high }} </span>
+    </div>
+    </li>
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;"><b>Low</b></span>
+      <span class="bottom" style="color: black;">{{ value.low }}</span>
 
 
-                </div>
-                </li>
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;" ><b>Pr_close</b></span>
-                  <span class="bottom" style="color: black;">{{ value.prev_day_close }}</span>
-                </div>
-                </li>
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;"><b>Ltp</b></span>
-                  <span class="bottom" style="color: black;">{{ value.ltp }}</span>
-                </div>
-                </li>
+    </div>
+    </li>
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;" ><b>Pr_close</b></span>
+      <span class="bottom" style="color: black;">{{ value.prev_day_close }}</span>
+    </div>
+    </li>
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;"><b>Ltp</b></span>
+      <span class="bottom" style="color: black;">{{ value.ltp }}</span>
+    </div>
+    </li>
 
-                <li class="breadcrumb-item">
-                <div class="div-container">
-                  <span class="top" style="text-align:center;color: black;"><b>Time</b></span>
-                  <span class="bottom" style="text-align:center;color: black;"><b class="badge badge-info">{{ value.time }}</b></span>
-                  <!-- <span class="bottom" style="color: black;">{{ value.time }}</span> -->
-                </div>
-                </li>
+    <li class="breadcrumb-item">
+    <div class="div-container">
+      <span class="top" style="text-align:center;color: black;"><b>Time</b></span>
+      <span class="bottom" style="text-align:center;color: black;"><b class="badge badge-info">{{ value.time }}</b></span>
+    </div>
+    </li>
 
-                <li class="breadcrumb-item">
-                  <div class="div-container">
-                    <span class="top" style="text-align:center;color: black;"><b>Diff</b></span>
-                    <span class="top" style="text-align:center;color: black;"><b class="badge badge-info">{{ value.section }}</b>
-                      {% if "Call" in value.strike %}
-                      <h2 style="text-align:center;color:white;font-size:medium" class="badge bg-success text-wrap">{{ value.strike }} </h2>
-                      {% else %}
-                      <h2 style="text-align:center;color:white;font-size:medium" class="badge bg-danger text-wrap">{{ value.strike }} </h2>
-                      {% endif %}
-                    </span>
-                    <!-- <span class="bottom" style="color: black;">{{ value.section }}</span> -->
-                  </div>
-                </li>
-              </ol>
-            </nav>
+    <li class="breadcrumb-item">
+      <div class="div-container">
+        <span class="top" style="text-align:center;color: black;"><b>Diff</b></span>
+        <span class="top" style="text-align:center;color: black;"><b class="badge badge-info">{{ value.section }}</b>
+          {% if "Call" in value.strike %}
+          <h2 style="text-align:center;color:white;font-size:medium" class="badge bg-success text-wrap">{{ value.strike }} </h2>
+          {% else %}
+          <h2 style="text-align:center;color:white;font-size:medium" class="badge bg-danger text-wrap">{{ value.strike }} </h2>
+          {% endif %}
+        </span>
+      </div>
+    </li>
+  </ol>
+</nav>
 
-            {% endfor %}
-
-<h4 style="text-align:center;color:white;font-size:medium;background-color: #274E13;" class="badge text-wrap">last refresh ({{option_timing |date:'H:i:s'}} - {{option_symbol}})</h4>
+{% endfor %} -->
 <div style="margin-top:5px"></div>
 <h4 style="text-align:center;margin-top:22px;color:black;font-size:medium;background-color: white;" class="badge text-wrap">FIRST DATA</h4>
 
