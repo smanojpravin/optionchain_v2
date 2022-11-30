@@ -552,9 +552,6 @@ def create_currency():
             td_obj.disconnect()
             td_obj.disconnect()
             sampleDict[symbol] = df
-            print(df)
-            # storing into the excel file
-            df.to_excel("output.xlsx")
 
             if optionChainprocess(df,symbol,dte) == False:
                 continue
