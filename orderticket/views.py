@@ -789,8 +789,9 @@ def home(request):
     'PVR', 'RAIN', 'RAMCOCEM', 'SBICARD', 'SBILIFE', 'SBIN', 'SHREECEM', 'SRF', 'SRTRANSFIN', 'SUNPHARMA', 'SUNTV', 
     'SYNGENE', 'TATACHEM', 'TATACOMM', 'TATACONSUM', 'TATAMOTORS', 'TCS', 'TECHM', 'TITAN', 'TORNTPOWER', 'TRENT', 
     'TVSMOTOR', 'UBL', 'ULTRACEMCO', 'UPL', 'VEDL', 'VOLTAS', 'WHIRLPOOL', 'WIPRO', 'ZEEL']
-    
-    todays_date = datetime.now().date()
+
+    tz = timezone('Asia/Kolkata')
+    todays_date = datetime.now(tz).date()
 
     return render(request,'ordersubmission.html',{'todays_date':todays_date,'fnolist':fnolist,'latestInstruction':latestInstruction})
 
