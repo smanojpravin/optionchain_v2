@@ -68,7 +68,7 @@ def create_currency():
     fnolist = super_list + normal_list
     # --------
     # fnolist = ['ESCORTS']
-    fnolist = ['GODREJPROP']
+    # fnolist = ['GODREJPROP']
 
 
     def OIPercentChange(df):
