@@ -20,8 +20,18 @@
 
   .pt-md-5 {
     padding: 1rem;
+
+    
 }
 
+.form-inline {
+    display: -ms-flexbox;
+    display: left;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-align: center;
+    align-items: center;
+}
 </style>
 {% comment %} <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> {% endcomment %}
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -38,7 +48,7 @@
           
             <div class="form-group mx-sm-3 mb-2">
 
-              <label for="EntryPrice" style="color: black;">Symbol ({{ fnolist|length }}): </label>
+              <!-- <label for="EntryPrice" style="color: black;">{{ fnolist|length }}: </label> -->
 
                 <select class="form-control" id="EntryPrice" name="symbol" required>
                       <option value="">select-symbol</option>
