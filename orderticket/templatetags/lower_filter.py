@@ -54,14 +54,14 @@ def shrink_num(value):
     # num = '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
 
 
-    if value.isdigit():
-        value_int = int(value)
+    # if value.isdigit():
+    value_int = int(value)
 
-        # if value_int >= 1000000:
-        #     value = "%.0f%s" % (value_int/1000000.00, 'M')
-        #else:
-        if value_int >= 1000 :
-            value = "%.0f %s" % (value_int/1000.0, 'k')
-        if value_int <= -1000 :
-            value = "%.0f %s" % (value_int/-1000.0, 'k')
+    # if value_int >= 1000000:
+    #     value = "%.0f%s" % (value_int/1000000.00, 'M')
+    #else:
+    if value_int >= 1000 :
+        value = "%.0f %s" % (value_int/1000.0, 'k')
+    if value_int <= -1000 :
+        value = "%.0f %s" % (value_int/-1000.0, 'k')
     return value
