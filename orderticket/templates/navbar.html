@@ -29,7 +29,9 @@
 
   <!-- <a class="nav-link" href="{% url 'home' %}"><button type="button" class="btn btn-warning">Home</button> </a> -->
 
-  <span class="hello-msg">{% now "jS F Y" %}</span>
+  <!-- <span class="hello-msg">{% now "jS F Y" %}</span>
+  todays_date -->
+  <span class="hello-msg">{{todays_date}}</span>
   <!-- <span class="hello-msg" id="txt">{% now "jS F Y" %}</span> -->
   <span class="hello-msg">Hello, {{request.user|capfirst}}</span>
 
