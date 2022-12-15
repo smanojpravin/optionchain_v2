@@ -494,7 +494,7 @@ Gap:
         </thead>
         <tbody>
           <tbody>
-            {% for record in early_change_oi %}
+            {% for record in OIChangeValue %}
                   <tr>
                   {% comment %} colspan=2 {% endcomment %}
                   <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
@@ -532,7 +532,7 @@ Gap:
 <h4 style="text-align:center;margin-top:15px;color:black;font-size:medium;background-color: white;" class="badge text-wrap">HISTORY</h4>
 <div class="row">
 
-<div class="col-sm-3">
+<div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
 
   {% if HistoryOIPercentChg|length == 0 %}
 
@@ -543,7 +543,7 @@ Gap:
   {% else %}
   <div class="fixTableHeadHistory">
     <table class="table-striped">
-      <thead>
+      <!-- <thead>
         <tr class="header">
               <tr>
                   <td colspan=5 style="width:10%;text-align:center;background-color: dimgrey;color:white"><b>Change % OI</b></td>
@@ -556,7 +556,7 @@ Gap:
 
               </tr>
 
-      </thead>
+      </thead> -->
   
       <tbody>
                       {% for record in HistoryOIPercentChg %}
@@ -613,7 +613,7 @@ Gap:
   
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
 
   {% if HistoryOIChg|length == 0 %}
 
@@ -624,7 +624,7 @@ Gap:
   {% else %}
   <div class="fixTableHeadHistory">
     <table class="table-striped">
-      <thead>
+      <!-- <thead>
         <tr class="header">
               <tr>
                   <td colspan=5 style="width:10%;text-align:center;background-color: dimgrey;color:white"><b>Change in OI</b></td>
@@ -637,7 +637,7 @@ Gap:
 
               </tr>
 
-      </thead>
+      </thead> -->
   
       <tbody>
                       {% for record in HistoryOIChg %}
@@ -694,7 +694,7 @@ Gap:
   
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
     {% if HistoryOITot|length == 0 %}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>No data!</strong> No History found for this symbol, Try other symbols.
@@ -703,7 +703,7 @@ Gap:
 
   <div class="fixTableHeadHistory">
     <table class="table-striped">
-      <thead>
+      <!-- <thead>
         <tr class="header">
               <tr>
                   <td colspan=5 style="width:10%;text-align:center;background-color: dimgrey;color:white"><b>Total OI</b></td>
@@ -713,7 +713,7 @@ Gap:
               <th colspan="2"><span>STRIKE</span></th>
               <th><span>PUT</span></th>
               </tr>
-      </thead>
+      </thead> -->
   
       <tbody>
                       {% for record in HistoryOITot %}
@@ -770,7 +770,7 @@ Gap:
   {% endif %}
 </div>
 
-<div class="col-sm-3">
+<div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
   {% if HistoryOIChg|length == 0 %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>No data!</strong> No History found for this symbol, Try other symbols.
@@ -779,7 +779,7 @@ Gap:
 
 <div class="fixTableHeadFirstData">
   <table class="table-striped">
-    <thead>
+    <!-- <thead>
       <tr class="header">
             <th style="background-color:lightpink;"><span>TIME</span></th>
             <th style="background-color:lightpink;"><span>STRIKE</span></th>
@@ -787,7 +787,7 @@ Gap:
             <th style="background-color:lightpink;"><span>%</span></th>
             <th style="background-color:lightpink;"><span>T-OI</span></th>
             </tr>
-    </thead>
+    </thead> -->
 
     <tbody>
                 {% for record in HistoryOIChg %}

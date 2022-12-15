@@ -726,7 +726,6 @@ def optionChain(request):
         print('*********************************** Live oi change *************************************')
         early_change_oi = HistoryOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
     else:
-        
         early_change_oi = LiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
 
     if len(HistoryOIPercentChg) > 0:
