@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'ordermanagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -94,18 +94,18 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.postgresql',
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#         'NAME': 'ddckthmr3n9ir3',                      # Or path to database file if using sqlite3.
-#         # The following settings are not used with sqlite3:
-#         'USER': 'cysodxnhngpeuy',
-#         'PASSWORD': 'ed20856a8607a473a4fc739a2f7105e365e75a801ea8a4a13e7046487a9b7566',
-#         'HOST': 'ec2-44-205-177-160.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-#         'PORT': '5432',                      # Set to empty string for default.
-#     }
-# }
+DATABASES = {
+    'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'ddckthmr3n9ir3',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'cysodxnhngpeuy',
+        'PASSWORD': 'ed20856a8607a473a4fc739a2f7105e365e75a801ea8a4a13e7046487a9b7566',
+        'HOST': 'ec2-44-205-177-160.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',                      # Set to empty string for default.
+    }
+}
 
 
 CELERY_IMPORTS = (
