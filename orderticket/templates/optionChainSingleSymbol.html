@@ -860,13 +860,13 @@ Gap:
         {% if "Call" in liveEqui.0.strike %}
         {% if liveEqui.0.section|divisibleby:2%}
         <!-- BUY -->
-        <li class="th"><label><span class="badge bg-success text-wrap">BUY</span></label></li>
+        <li class="th"><label><span class="badge bg-success text-wrap" style="font-size:13px">BUY</span></label></li>
         <!-- <span class="td percentile-32"><span class="badge bg-success text-wrap">BUY</span></span> -->
 
         <!-- <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">BUY </h2> -->
         {% else %}
         <!-- SELL -->
-        <li class="th"><label><span class="badge bg-danger text-wrap">SELL</span></label></li>
+        <li class="th"><label><span class="badge bg-danger text-wrap" style="font-size:13px">SELL</span></label></li>
         <!-- <span class="td percentile-32"><span class="badge bg-danger text-wrap">SELL</span></span> -->
         <!-- <h2 style="text-align:center;color:white;font-size:small" class="badge bg-danger text-wrap">SELL</h2> -->
         {% endif %}
@@ -874,11 +874,11 @@ Gap:
         {% else %}
       {% if liveEqui.0.section|divisibleby:2%}
       <!-- SELL -->
-      <li class="th"><label><span class="badge bg-danger text-wrap">SELL</span></label></li>
+      <li class="th"><label><span class="badge bg-danger text-wrap" style="font-size:13px" >SELL</span></label></li>
       <!-- <h2 style="text-align:center;color:white;font-size:small" class="badge bg-danger text-wrap">SELL</h2> -->
       {% else %}
       <!-- BUY -->
-      <li class="th"><label><span class="badge bg-success text-wrap">BUY</span></label></li>
+      <li class="th"><label><span class="badge bg-success text-wrap" style="font-size:13px">BUY</span></label></li>
       <!-- <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">BUY </h2> -->
       {% endif %}
       {% endif %}
