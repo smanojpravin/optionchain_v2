@@ -57,7 +57,7 @@ def shrink_num(value):
         value = abs(int(value))
         negation = True
     value = str(value)
-
+    value = value.split(".", 1)[0]
     if value.isdigit():
         value_int = int(value)
 
