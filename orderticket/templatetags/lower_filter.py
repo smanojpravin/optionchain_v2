@@ -53,7 +53,7 @@ def shrink_num(value):
     # # add more suffixes if you need them
     # num = '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
     negation = False
-    if int(value) <0:    
+    if int(float(value)) <0:   
         value = abs(int(float(value)))
         negation = True
     value = str(value)
