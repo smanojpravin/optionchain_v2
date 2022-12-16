@@ -54,7 +54,7 @@ def shrink_num(value):
     # num = '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
     negation = False
     if int(value) <0:    
-        value = abs(int(value))
+        value = abs(int(float(value)))
         negation = True
     value = str(value)
     value = value.split(".", 1)[0]
