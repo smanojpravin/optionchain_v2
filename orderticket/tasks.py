@@ -61,11 +61,13 @@ def create_currency():
         'PVR', 'RAIN', 'RAMCOCEM', 'SBICARD', 'SBILIFE', 'SBIN', 'SHREECEM', 'SRF', 'SRTRANSFIN', 'SUNPHARMA', 'SUNTV', 
         'SYNGENE', 'TATACHEM', 'TATACOMM', 'TATACONSUM', 'TATAMOTORS', 'TCS', 'TECHM', 'TITAN', 'TORNTPOWER', 'TRENT', 
         'TVSMOTOR', 'UBL', 'ULTRACEMCO', 'UPL', 'VEDL', 'VOLTAS', 'WHIRLPOOL', 'WIPRO', 'ZEEL']
-    gain_list = SuperLiveSegment.objects.filter(segment__in=["gain"]).order_by('-change_perc').values_list('symbol', flat=True) 
-    loss_list = SuperLiveSegment.objects.filter(segment__in=["loss"]).order_by('change_perc').values_list('symbol', flat=True) 
-    super_list = list(gain_list) + list(loss_list)
-    normal_list = [x for x in fnolist if x not in super_list]
-    fnolist = super_list + normal_list
+    gain_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__gte = 1.5).order_by('-change_perc').values_list('symbol', flat=True) 
+    loss_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__lte = 1.5).order_by('change_perc').values_list('symbol', flat=True)
+    gain_zero_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__lte = 1.5, change_perc__gte = 0).order_by('-change_perc').values_list('symbol', flat=True)
+    loss_zero_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__gte = -1.5, change_perc__lte = 0).order_by('change_perc').values_list('symbol', flat=True)
+    fnolist = list(gain_list) + list(loss_list) + list(gain_zero_list) + list(loss_zero_list)
+    # normal_list = [x for x in fnolist if x not in super_list]
+    # fnolist = super_list + normal_list
     # --------
     # fnolist = ['ESCORTS']
     # fnolist = ['GODREJPROP']

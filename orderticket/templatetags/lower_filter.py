@@ -52,7 +52,11 @@ def shrink_num(value):
     #     num /= 1000.0
     # # add more suffixes if you need them
     # num = '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
-
+    negation = False
+    if int(value) <0:    
+        value = abs(int(value))
+        negation = True
+    value = str(value)
 
     if value.isdigit():
         value_int = int(value)
@@ -64,4 +68,8 @@ def shrink_num(value):
             value = "%.0f %s" % (value_int/1000.0, 'k')
         if value_int <= -1000 :
             value = "%.0f %s" % (value_int/-1000.0, 'k')
-    return value
+        
+    if negation:
+        return f"-{value}"
+    else:
+        return value

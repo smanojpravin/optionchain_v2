@@ -147,7 +147,7 @@ The meat and potatoes - relies on the list functions at the top of this file
   background: #62bea3;
 }
 .table .percentile-76 .number {
-  text-shadow: 0.08em 0.08em #6e6e6e;
+  text-shadow: 0.08em 0.08em black;
 }
 .table .percentile-77 {
   background: #64bea2;
@@ -612,10 +612,10 @@ The meat and potatoes - relies on the list functions at the top of this file
   text-shadow: 0.08em 0.08em #8f4362;
 }
 .table .percentile-20 {
-  background: #b5688b;
+  background: #e33e36;
 }
 .table .percentile-20 .number {
-  text-shadow: 0.08em 0.08em #6e6e6e;
+  text-shadow: 0.08em 0.08em black;
 }
 .table .percentile-21 {
   background: #b36a8f;
@@ -853,7 +853,7 @@ Gap:
         <li class="th"><label>HIGH</label></li>
         <li class="th"><label>LOW</label></li>
         <li class="th"><label>P.CLOSE</label></li>
-        <li class="th"><label>LTP</label></li>
+        <li class="th" ><label>LTP</label></li>
         <li class="th"><label>STRIKE GAP</label></li>
         <li class="th"><label>LOT</label></li>
         <!-- <li class="th"><label></label></li> -->
@@ -887,12 +887,13 @@ Gap:
       
       <ul class="table-body" style="font-size:8PX"> 
         <li class="tr">
-          <span class="metric td" style="background-color:orange"><b>{{ symbol }}</b></span>
-          <span class="td percentile-76" ><span class="number">{{liveEqui.0.open}} </span></span>
+          <!-- <span class="metric td" style="background-color:orange"><b>{{ symbol }}</b></span> -->
+          <h2 style="text-align:center;color:black;font-size:small" class="badge bg-warning text-wrap">{{symbol}}</h2>
+          <span class="td percentile-76" style="background-color: burlywood;" ><span class="number">{{liveEqui.0.open}} </span></span>
           <span class="td percentile-90"><span class="number">{{liveEqui.0.high}} </span></span>
           <span class="td percentile-20"><span class="number">{{liveEqui.0.low}} </span></span>
-          <span class="td percentile-76"><span class="number">{{liveEqui.0.prev_day_close}}</span></span>
-          <span class="td percentile-87"><span class="number">{{liveEqui.0.ltp}}</span></span>
+          <span class="td percentile-76" style="background-color: burlywood;" ><span class="number">{{liveEqui.0.prev_day_close}}</span></span>
+          <span class="td percentile-87" style="background-color: antiquewhite; color: black;"><span class="number">{{liveEqui.0.ltp}}</span></span>
           <span class="td percentile-32"><span class="number">{{ OITotalValue.0.strikegap }}</span></span>
           <span class="td percentile-32"><span class="number">{{ symbol_lot }}</span></span>
 
@@ -1381,7 +1382,7 @@ Gap:
                     <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                     <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                     <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                    <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                    <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num  }}</td>
                   </tr>
                   <tr>
                     <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1389,7 +1390,7 @@ Gap:
                     <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                     <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                     <td style="width:2%;text-align:center;color: black;">{{ record.put_percentage  }}%</td>
-                    <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                    <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                   </tr>
                   <tr style="background-color: white;">
                   <td></td>
@@ -1416,7 +1417,7 @@ Gap:
   {% if HistoryOIPercentChg|length == 0 %}
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
 
   {% else %}
@@ -1497,7 +1498,7 @@ Gap:
   {% if HistoryOIChg|length == 0 %}
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
 
   {% else %}
@@ -1576,7 +1577,7 @@ Gap:
 <div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
     {% if HistoryOITot|length == 0 %}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>No data!</strong> No History found for this symbol, Try other symbols.
+    <strong>No data!</strong> 
     </div>
     {% else %}
 
@@ -1652,7 +1653,7 @@ Gap:
 <div class="col-sm-3" style="border: solid 0.1em;border-color: #cdcdcd;">
   {% if HistoryOIChg|length == 0 %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
   {% else %}
 
@@ -1677,7 +1678,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                         <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                         <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num  }}</td>
                       </tr>
                       <tr>
                         <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1685,7 +1686,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                         <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                         <td style="width:2%;text-align:center;color:black;">{{ record.put_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                       </tr>
                       <tr style="background-color: white;">
                       <td></td>
@@ -1713,7 +1714,7 @@ Gap:
   {% if early_percent_change|length == 0 %}
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
 
   {% else %}
@@ -1794,7 +1795,7 @@ Gap:
   {% if early_change_oi|length == 0 %}
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
 
   {% else %}
@@ -1871,7 +1872,7 @@ Gap:
 <div class="col-sm-3">
     {% if early_total_oi|length == 0 %}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>No data!</strong> No History found for this symbol, Try other symbols.
+    <strong>No data!</strong> 
     </div>
     {% else %}
 
@@ -1945,7 +1946,7 @@ Gap:
 <div class="col-sm-3">
   {% if early_total_oi|length == 0 %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>No data!</strong> No History found for this symbol, Try other symbols.
+  <strong>No data!</strong> 
   </div>
   {% else %}
 
@@ -1970,7 +1971,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                         <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                         <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num  }}</td>
                       </tr>
                       <tr>
                         <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1978,7 +1979,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                         <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                         <td style="width:2%;text-align:center;color: black;">{{ record.put_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                       </tr>
                       <tr style="background-color: white;">
                       <td></td>
