@@ -70,7 +70,8 @@ def create_currency():
     # fnolist = super_list + normal_list
     # --------
     # fnolist = ['ESCORTS']
-    # fnolist = ['GODREJPROP']
+    # fnolist = ['POLYCAB']
+    fnolist.remove('AMARAJABAT')
 
 
     def OIPercentChange(df):
@@ -540,7 +541,7 @@ def create_currency():
                 print("Proper graceful exit")
 
             print(f"############################################  {symbol} ###############################")
-            expiry = "29-Dec-2022"
+            expiry = "25-Jan-2022"
             dte = dt.strptime(expiry, '%d-%b-%Y')
             td_obj = TD('tdwsp127', 'saaral@127')
             first_chain = td_obj.start_option_chain( symbol , dt(dte.year , dte.month , dte.day) ,chain_length = 75)
