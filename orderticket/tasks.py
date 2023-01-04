@@ -71,8 +71,11 @@ def create_currency():
     # --------
     # fnolist = ['ESCORTS']
     # fnolist = ['POLYCAB']
-    fnolist.remove('AMARAJABAT')
-
+    try:
+        fnolist.remove('AMARAJABAT')
+    except ValueError:
+        print("new_tag_list has no empty string")
+    
 
     def OIPercentChange(df):
         try:
