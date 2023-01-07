@@ -20,6 +20,7 @@ import calendar
 from datetime import date
 import time as te
 from collections import OrderedDict
+import logging
 
 @shared_task
 def create_currency():
@@ -46,7 +47,7 @@ def create_currency():
 
     # gain & loss list -----
     # fnolist = ['ESCORTS','ATUL']
-    fnolist =  ['AARTIIND', 'ABB', 'ABBOTINDIA', 'ABFRL', 'ACC', 'ADANIENT', 'ADANIPORTS', 'ALKEM', 'AMARAJABAT', 
+    fnolist =  ['AARTIIND', 'ABB', 'ABBOTINDIA', 'ABFRL', 'ACC', 'ADANIENT', 'ADANIPORTS', 'ALKEM', 
         'AMBUJACEM', 'APOLLOHOSP', 'ASIANPAINT', 'ATUL', 'AUBANK', 'AUROPHARMA', 'AXISBANK', 'BAJAJ-AUTO', 
         'BAJFINANCE', 'BALRAMCHIN', 'BANDHANBNK', 'BATAINDIA', 'BERGEPAINT', 'BHARATFORG', 'BHARTIARTL', 
         'BIOCON', 'BOSCHLTD', 'BPCL', 'BRITANNIA', 'BSOFT', 'CANFINHOME', 'CHAMBLFERT', 'CHOLAFIN', 'CIPLA', 
@@ -61,21 +62,12 @@ def create_currency():
         'PVR', 'RAIN', 'RAMCOCEM', 'SBICARD', 'SBILIFE', 'SBIN', 'SHREECEM', 'SRF', 'SRTRANSFIN', 'SUNPHARMA', 'SUNTV', 
         'SYNGENE', 'TATACHEM', 'TATACOMM', 'TATACONSUM', 'TATAMOTORS', 'TCS', 'TECHM', 'TITAN', 'TORNTPOWER', 'TRENT', 
         'TVSMOTOR', 'UBL', 'ULTRACEMCO', 'UPL', 'VEDL', 'VOLTAS', 'WHIRLPOOL', 'WIPRO', 'ZEEL']
+
     gain_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__gte = 1.5).order_by('-change_perc').values_list('symbol', flat=True) 
     loss_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__lte = 1.5).order_by('change_perc').values_list('symbol', flat=True)
     gain_zero_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__lte = 1.5, change_perc__gte = 0).order_by('-change_perc').values_list('symbol', flat=True)
     loss_zero_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__gte = -1.5, change_perc__lte = 0).order_by('change_perc').values_list('symbol', flat=True)
     fnolist = list(gain_list) + list(loss_list) + list(gain_zero_list) + list(loss_zero_list)
-    # normal_list = [x for x in fnolist if x not in super_list]
-    # fnolist = super_list + normal_list
-    # --------
-    # fnolist = ['ESCORTS']
-    # fnolist = ['POLYCAB']
-    try:
-        fnolist.remove('AMARAJABAT')
-    except ValueError:
-        print("new_tag_list has no empty string")
-    
 
     def OIPercentChange(df):
         try:
@@ -415,6 +407,23 @@ def create_currency():
         LiveOITotal.objects.filter(time__lte = pastDate).delete()
         LiveOIChange.objects.filter(time__lte = pastDate).delete()
         LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
+        # deleting past first data
+        FirstLiveOITotal.objects.filter(time__lte = pastDate).delete()
+        FirstLiveOIChange.objects.filter(time__lte = pastDate).delete()
+        FirstLiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
+
+
+        if FirstLiveOITotal.objects.filter(symbol=item).count() == 0:
+            ChangeOICreation = LiveOIChange(call_final=OIChangeValue["call_final"], put_final=OIChangeValue["put_final"],max_ceoi_strike=OIChangeValue["max_ceoi_strike"], put_max_ceoi_strike=OIChangeValue["put_max_ceoi_strike"],call_percentage=OIChangeValue["call_percentage"],put_percentage=OIChangeValue["put_percentage"],call_ceoi_total=OIChangeValue["call_ceoi_total"],put_ceoi_total=OIChangeValue["put_ceoi_total"],time=OIChangeValue['celtt'],call1=OIChangeValue['ceoi1'],call2=OIChangeValue['ceoi2'],put1=OIChangeValue['peoi1'],put2=OIChangeValue['peoi2'],callstrike=OIChangeValue['cestrike'],putstrike=OIChangeValue['pestrike'],symbol=item,expiry=dte)
+            ChangeOICreation.save()
+
+        if FirstLiveOIChange.objects.filter(symbol=item).count() == 0:
+            TotalOICreation = LiveOITotal(time=OITotalValue['celtt'],call1=OITotalValue['ceoi1'],call2=OITotalValue['ceoi2'],put1=OITotalValue['peoi1'],put2=OITotalValue['peoi2'],callstrike=OITotalValue['cestrike'],putstrike=OITotalValue['pestrike'],symbol=item,expiry=dte,strikegap=strikeGap)
+            TotalOICreation.save()
+
+        if FirstLiveOIPercentChange.objects.filter(symbol=item).count() == 0:
+            ChangeOIPercentCreation = LiveOIPercentChange(time=percentChange['celtt'],call1=percentChange['ceoi1'],call2=percentChange['ceoi2'],put1=percentChange['peoi1'],put2=percentChange['peoi2'],callstrike=percentChange['cestrike'],putstrike=percentChange['pestrike'],symbol=item,expiry=dte)
+            ChangeOIPercentCreation.save()
        
         value1 = LiveOIChange.objects.filter(symbol=item)
         
@@ -527,14 +536,102 @@ def create_currency():
 
         print("LiveOIPercentChange data - Completed")
 
+    fnolist2 = []
     # Fetching the F&NO symbol list
     TrueDatausername = 'tdws127'
     TrueDatapassword = 'saaral@127'
 
+    expiry = "25-Jan-2023"
+    dte = dt.strptime(expiry, '%d-%b-%Y')
+    td_obj = TD('tdwsp127', 'saaral@127', log_level= logging.ERROR)
+
+    def pairwise(iterable):
+        "s -> (s0, s1), (s2, s3), (s4, s5), ..."
+        a = iter(iterable)
+        return zip(a, a, a)
+    # te.sleep(3)
+    for x, y, z in pairwise(fnolist):
+        print(f"{x}, {y}, {z}")
+        
+        td_obj = TD('tdwsp127', 'saaral@127')
+
+        # x_run = False
+        # y_run = False
+        # z_run = False
+
+        # try:
+        sbi_chain = td_obj.start_option_chain( x, dt(dte.year , dte.month , dte.day) ,chain_length = 75 )
+            # x_run = True
+        # except:
+            # print(f"Failed for {x}")
+            # td_obj = TD('tdwsp127', 'saaral@127')
+
+        # try:   
+        bnf_chain = td_obj.start_option_chain( y, dt(dte.year , dte.month , dte.day) ,chain_length = 75 )
+            # y_run = True
+
+        # except:
+            # print(f"Failed for {y}")
+            # td_obj = TD('tdwsp127', 'saaral@127')
+        
+        # try: 
+        nifty_chain = td_obj.start_option_chain( z, dt(dte.year , dte.month , dte.day) ,chain_length = 75)
+        # except:
+        # print(f"Failed for {z}")
+            # continue
+
+        te.sleep(2)
+
+        # for req_id in req_ids:
+        #     live_data_objs[req_id] = deepcopy(td_obj.live_data[req_id])
+
+        
+        
+        
+        # print(sbi_chain_df)
+        # print(bnf_chain_df)
+        # print(nifty_chain_df)
+    # print(bnf_chain.get_option_chain())
+
+        # if x_run:
+        sbi_chain_df = sbi_chain.get_option_chain()
+        sbi_chain.stop_option_chain()
+        # if y_run:
+        bnf_chain_df = bnf_chain.get_option_chain()
+        bnf_chain.stop_option_chain()
+        # if z_run:
+        nifty_chain_df = nifty_chain.get_option_chain()
+        nifty_chain.stop_option_chain()
+        
+        td_obj.disconnect()
+
+        try:
+            if optionChainprocess(sbi_chain_df,x,dte) == False:
+                continue
+        except:
+            print(f"Problem in {x}")
+
+        try:
+            if optionChainprocess(bnf_chain_df,y,dte) == False:
+                continue   
+        except:
+            print(f"Problem in {y}")
+
+        try:
+            if optionChainprocess(nifty_chain_df,z,dte) == False:
+                continue 
+        except:
+              print(f"Problem in {z}")
+
+        # connection_check == 'end'
+        print("Flow Completed")
+    # te.sleep(2)
+
     sampleDict = {}
     count=1
     connection_check = ''
-    for symbol in fnolist:
+
+    for symbol in fnolist2:
         try:
             if connection_check == 'start':
                 # Graceful exit
