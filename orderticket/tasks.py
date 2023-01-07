@@ -45,45 +45,43 @@ def create_currency():
     EquityThree.objects.filter(date__lt = nsepadDate).delete()
     #  -----
     
-    def isNowInTimePeriod(startTime, endTime, nowTime): 
-        print(f"{nowTime} -{startTime}-{endTime}")
-        if nowTime > endTime:
-            print("Market ended")
-            print(f"{nowTime} - {endTime}")
-            LiveOITotalAllSymbol.objects.all().delete()
-            # # Deleting past historical data in the database
-            HistoryOIChange.objects.all().delete()
-            HistoryOITotal.objects.all().delete()
-            HistoryOIPercentChange.objects.all().delete()
-            # Deleting live data
-            LiveOITotal.objects.all().delete()
-            LiveOIChange.objects.all().delete()
-            LiveOIPercentChange.objects.all().delete()
-            # deleting past first data
-            FirstLiveOITotal.objects.all().delete()
-            FirstLiveOIChange.objects.all().delete()
-            FirstLiveOIPercentChange.objects.all().delete()
-
-        elif nowTime < startTime:
-            print("Market not started- deleting old data")
-            LiveOITotalAllSymbol.objects.all().delete()
-            # # Deleting past historical data in the database
-            HistoryOIChange.objects.all().delete()
-            HistoryOITotal.objects.all().delete()
-            HistoryOIPercentChange.objects.all().delete()
-            # Deleting live data
-            LiveOITotal.objects.all().delete()
-            LiveOIChange.objects.all().delete()
-            LiveOIPercentChange.objects.all().delete()
-            # deleting past first data
-            FirstLiveOITotal.objects.all().delete()
-            FirstLiveOIChange.objects.all().delete()
-            FirstLiveOIPercentChange.objects.all().delete()
+    startTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
+    endTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(22,1)).time()
+    nowTime = datetime.now(timezone('Asia/Kolkata')).time()
+    print(f"{nowTime} -{startTime}-{endTime}")
     
-    isNowInTimePeriod(datetime.combine(
-    datetime.now(timezone('Asia/Kolkata')), time(9,16)).time(), 
-    datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(22,1)).time(), 
-    datetime.now(timezone('Asia/Kolkata')).time())
+    if nowTime > endTime:
+        print("Market ended")
+        print(f"{nowTime} - {endTime}")
+        LiveOITotalAllSymbol.objects.all().delete()
+        # # Deleting past historical data in the database
+        HistoryOIChange.objects.all().delete()
+        HistoryOITotal.objects.all().delete()
+        HistoryOIPercentChange.objects.all().delete()
+        # Deleting live data
+        LiveOITotal.objects.all().delete()
+        LiveOIChange.objects.all().delete()
+        LiveOIPercentChange.objects.all().delete()
+        # deleting past first data
+        FirstLiveOITotal.objects.all().delete()
+        FirstLiveOIChange.objects.all().delete()
+        FirstLiveOIPercentChange.objects.all().delete()
+
+    elif nowTime < startTime:
+        print("Market not started- deleting old data")
+        LiveOITotalAllSymbol.objects.all().delete()
+        # # Deleting past historical data in the database
+        HistoryOIChange.objects.all().delete()
+        HistoryOITotal.objects.all().delete()
+        HistoryOIPercentChange.objects.all().delete()
+        # Deleting live data
+        LiveOITotal.objects.all().delete()
+        LiveOIChange.objects.all().delete()
+        LiveOIPercentChange.objects.all().delete()
+        # deleting past first data
+        FirstLiveOITotal.objects.all().delete()
+        FirstLiveOIChange.objects.all().delete()
+        FirstLiveOIPercentChange.objects.all().delete()
 
     
 
