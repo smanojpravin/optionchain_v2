@@ -111,7 +111,7 @@ def create_currency():
     
     try:
         fnolist.remove('AMARAJABAT')
-    else:
+    except:
         print('amar not found')
         
     def OIPercentChange(df):
