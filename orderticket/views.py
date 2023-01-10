@@ -723,21 +723,21 @@ def optionChain(request):
 
 
     if len(FirstOITot) > 0:
-        early_total_oi = FirstOITot.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_total_oi = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
     else:
-        early_total_oi = FirstOITot.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_total_oi = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
 
     if len(FirstOIChg) > 0:
         print('*********************************** Live oi change *************************************')
-        early_change_oi = FirstOIChg.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_change_oi = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
     else:
-        early_change_oi = FirstOIChg.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_change_oi = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
 
     if len(FirstOIPercentChg) > 0:
-        early_percent_change = FirstOIPercentChg.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_percent_change = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
         print(early_percent_change)
     else:
-        early_percent_change = FirstOIPercentChg.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_percent_change = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
 	
 
     from datetime import datetime
