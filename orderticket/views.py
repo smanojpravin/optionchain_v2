@@ -717,22 +717,28 @@ def optionChain(request):
     HistoryOIChg = HistoryOIChange.objects.filter(symbol=symbol).order_by('-time')
     HistoryOIPercentChg = HistoryOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
 
-    if len(HistoryOITot) > 0:
-        early_total_oi = HistoryOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
-    else:
-        early_total_oi = LiveOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
+    FirstOITot = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('-time')
+    FirstOIChg = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('-time')
+    FirstOIPercentChg = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
 
-    if len(HistoryOIChg) > 0:
+
+    if len(FirstOITot) > 0:
+        early_total_oi = FirstOITot.objects.filter(symbol=symbol).order_by('time')[:1]
+    else:
+        early_total_oi = FirstOITot.objects.filter(symbol=symbol).order_by('time')[:1]
+
+    if len(FirstOIChg) > 0:
         print('*********************************** Live oi change *************************************')
-        early_change_oi = HistoryOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_change_oi = FirstOIChg.objects.filter(symbol=symbol).order_by('time')[:1]
     else:
-        early_change_oi = LiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_change_oi = FirstOIChg.objects.filter(symbol=symbol).order_by('time')[:1]
 
-    if len(HistoryOIPercentChg) > 0:
-        early_percent_change = HistoryOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
+    if len(FirstOIPercentChg) > 0:
+        early_percent_change = FirstOIPercentChg.objects.filter(symbol=symbol).order_by('time')[:1]
         print(early_percent_change)
     else:
-        early_percent_change = LiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
+        early_percent_change = FirstOIPercentChg.objects.filter(symbol=symbol).order_by('time')[:1]
+	
 
     from datetime import datetime
     import pytz
