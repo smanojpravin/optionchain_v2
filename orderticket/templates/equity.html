@@ -1023,6 +1023,7 @@
 $("button").click(function() {
    var url = '{% url 'optionChain' %}';
     var fired_button = $(this).val();
+        window.scrollTo(0, 0);
         $.ajax({
         url:url,
         data: {
