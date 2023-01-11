@@ -308,3 +308,14 @@ class FirstLiveOIPercentChange(models.Model):
     class Meta:
 
         app_label = 'orderticket'
+class Totalruntime(models.Model):
+    start_time = models.DateTimeField(auto_now_add=False)
+    end_time = models.DateTimeField(auto_now_add=False)
+    total_run = models.FloatField(default=0)
+
+
+    def __str__(self):
+        return self.total_run
+    class Meta:
+
+        app_label = 'orderticket'
