@@ -578,6 +578,7 @@ def create_currency():
         print("LiveOIPercentChange data - Completed")
 
     fnolist2 = []
+    start_time = datetime.now(timezone('Asia/Kolkata'))
     # Fetching the F&NO symbol list
     TrueDatausername = 'tdws127'
     TrueDatapassword = 'saaral@127'
@@ -667,6 +668,17 @@ def create_currency():
         # connection_check == 'end'
         print("Flow Completed")
     # te.sleep(2)
+    end_time = datetime.now(timezone('Asia/Kolkata'))
+
+    # get difference
+    delta = end_time - start_time
+
+    sec = delta.total_seconds()
+    #print('difference in seconds:', round(sec, 2) )
+    min = sec / 60
+    #print('difference in minutes:', round(min, 2) )
+    last_run_time = Totalruntime(start_time=start_time,end_time=end_time,total_run=min)
+    last_run_time.save()
 
     sampleDict = {}
     count=1
