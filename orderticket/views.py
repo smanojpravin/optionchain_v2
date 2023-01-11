@@ -682,7 +682,7 @@ def equity(request):
         equity_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
     try:
-        last_run_time = Totalruntime.objects.order_by('end_time')[:1]
+        last_run_time = Totalruntime.objects.order_by('-end_time')[:1]
         last_run_timing = last_run_time[0].total_run
     except:
         last_run_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
