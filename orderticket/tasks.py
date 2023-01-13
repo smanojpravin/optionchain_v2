@@ -21,6 +21,7 @@ from datetime import date
 import time as te
 from collections import OrderedDict
 import logging
+from django.db.models import Q
 
 @shared_task
 def create_currency():
@@ -48,6 +49,7 @@ def create_currency():
     startTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
     endTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(22,1)).time()
     nowTime = datetime.now(timezone('Asia/Kolkata')).time()
+    section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(10,15)).time()
     print(f"{nowTime} -{startTime}-{endTime}")
     
     if nowTime > endTime:
@@ -105,6 +107,15 @@ def create_currency():
     loss_zero_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__gte = -1.5, change_perc__lte = 0).order_by('change_perc').values_list('symbol', flat=True)
     fnolist = list(gain_list) + list(loss_list) + list(gain_zero_list) + list(loss_zero_list)
     
+    # excluding open symbols
+    open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
+    fnolist = list(filter(lambda x: all([x.find(y) != 0 for y in open_remove_list]), fnolist))
+
+    # excluding section symbols
+    if nowTime > section_check_time:
+        section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
+        fnolist = list(filter(lambda x: all([x.find(y) != 0 for y in section_remove_list]), fnolist))
+
     try:
         fnolist.remove('AMARAJABAT')
     except:
