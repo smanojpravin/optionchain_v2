@@ -89,7 +89,7 @@ def create_currency():
         Totalruntime.objects.all().delete()
 
     
-    if nowTime > start_time and nowTime < market_stop_time:
+    if nowTime > startTime and nowTime < market_stop_time:
         # gain & loss list -----
         # fnolist = ['ESCORTS','ATUL']
         fnolist = ['AARTIIND','ABB','ABBOTINDIA','ABFRL','ACC','ADANIENT','ADANIPORTS','AMBUJACEM','APOLLOHOSP','APOLLOTYRE','ATUL','AUBANK',
