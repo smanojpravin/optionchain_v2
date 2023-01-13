@@ -201,7 +201,9 @@
           <nav aria-label="breadcrumb">
             <ul class="list-group">
               {% for value in gain %}
+              {%if value.symbol not in remove_list%}
               <li style="font-size:13px;padding:0px" class="list-group-item"><b class="badge badge-success">{{ value.symbol }}</b> | <b>{{ value.change_perc|floatformat:"2" }}</b></li>
+              {% endif %}
               {% endfor %}
               </ul>
 
@@ -357,12 +359,11 @@
 
           <ul class="list-group">
             {% for value in loss %}
+            {%if value.symbol not in remove_list%}
             <li style="font-size:13px;padding:0px" class="list-group-item"><b class="badge badge-danger">{{ value.symbol }}</b> | <b>{{ value.change_perc|floatformat:"2" }}</b></li>
+            {% endif %}
             {% endfor %}
             </ul>
-
-
-
         </nav>
 
 
