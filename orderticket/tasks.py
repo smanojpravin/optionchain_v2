@@ -68,6 +68,7 @@ def create_currency():
         FirstLiveOITotal.objects.all().delete()
         FirstLiveOIChange.objects.all().delete()
         FirstLiveOIPercentChange.objects.all().delete()
+        Totalruntime.objects.all().delete()
 
     elif nowTime < startTime:
         print("Market not started- deleting old data")
@@ -84,6 +85,7 @@ def create_currency():
         FirstLiveOITotal.objects.all().delete()
         FirstLiveOIChange.objects.all().delete()
         FirstLiveOIPercentChange.objects.all().delete()
+        Totalruntime.objects.all().delete()
 
     
 
