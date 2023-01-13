@@ -33,6 +33,7 @@ from django.db.models import Count, F, Value
 from datetime import datetime as equ_timing
 from datetime import time as equ_time
 from pytz import timezone
+from django.db.models import Q
 
 def sample(request):
 
@@ -465,168 +466,7 @@ def formCalculation(request):
 
 #4 Equity Section - Calculation
 def equity(request):
-
-    # TrueDatausername = 'tdws135'
-    # TrueDatapassword = 'saaral@135'
-
-    # nse = Nse()
-    # fnolist = nse.get_fno_lot_sizes()
-    # symbols = list(fnolist.keys())
-
-    # # Default production port is 8082 in the library. Other ports may be given t oyou during trial.
-    # realtime_port = 8082
-
-    # td_app = TD(TrueDatausername, TrueDatapassword, live_port=realtime_port, historical_api=False)
-
-    # print('Starting Real Time Feed.... ')
-    # print(f'Port > {realtime_port}')
-
-    # req_ids = td_app.start_live_data(symbols)
-    # live_data_objs = {}
-
-    # liveData = {}
-    # for req_id in req_ids:
-    #     # print(td_app.live_data[req_id])
-    #     if (td_app.live_data[req_id].ltp) == None:
-    #         continue
-    #     else:
-    #         liveData[td_app.live_data[req_id].symbol] = [td_app.live_data[req_id].ltp,td_app.live_data[req_id].day_open,td_app.live_data[req_id].day_high,td_app.live_data[req_id].day_low,td_app.live_data[req_id].prev_day_close,dt.now(timezone("Asia/Kolkata")).strftime('%H:%M:%S')]
-
-    # # Graceful exit
-    # td_app.stop_live_data(symbols)
-    # td_app.disconnect()
-
-    # # Finding out the pastdate
-    # from datetime import datetime, timedelta
-    # pastDate = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
-  
-    # # LiveEquityResult.objects.all().delete()
-    # LiveEquityResult.objects.filter(date = pastDate).delete()
-
-    # removeList = ["NIFTY","BANKNIFTY","FINNIFTY"]
-
-    # callcrossedset = LiveEquityResult.objects.filter(strike__contains="Call Crossed")
-    # callonepercentset = LiveEquityResult.objects.filter(strike="Call 1 percent")
-    # putcrossedset = LiveEquityResult.objects.filter(strike="Put Crossed")
-    # putonepercentset = LiveEquityResult.objects.filter(strike="Put 1 percent")
-
-    # opencallcross = LiveEquityResult.objects.filter(opencrossed="call")
-    # openputcross = LiveEquityResult.objects.filter(opencrossed="put")
-
-    # callcrossedsetDict = {}
-    # callonepercentsetDict = {}
-    # putcrossedsetDict = {}
-    # putonepercentsetDict = {}
-    # opencallcrossDict = {}
-    # openputcrossDict = {}
-
-    # for i in callcrossedset:
-    #     callcrossedsetDict[i.symbol] = i.time
-    # for i in callonepercentset:
-    #     callonepercentsetDict[i.symbol] = i.time
-    # for i in putcrossedset:
-    #     putcrossedsetDict[i.symbol] = i.time
-    # for i in putonepercentset:
-    #     putonepercentsetDict[i.symbol] = i.time
-    # for i in opencallcross:
-    #     opencallcrossDict[i.symbol] = i.time
-    # for i in openputcross:
-    #     openputcrossDict[i.symbol] = i.time
-
-    # for e in LiveOITotalAllSymbol.objects.all():
-    #     print(e.symbol)
-        
-    #     if e.symbol in liveData and e.symbol not in removeList:
-
-    #         # Call
-    #         if liveData[e.symbol][1] > float(e.callstrike):
-    #             if e.symbol in opencallcrossDict:
-    #                 LiveEquityResult.objects.filter(symbol = e.symbol).delete()
-    #                 callcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call Crossed",opencrossed="call",time=opencallcrossDict[e.symbol],date=date.today())
-    #                 callcross.save()
-    #             else:
-    #                 callcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call Crossed",opencrossed="call",time=liveData[e.symbol][5],date=date.today())
-    #                 callcross.save()
-            
-    #         if liveData[e.symbol][1] < float(e.putstrike):
-    #             if e.symbol in openputcrossDict:
-    #                 LiveEquityResult.objects.filter(symbol = e.symbol).delete()
-    #                 putcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put Crossed",opencrossed="put",time=openputcrossDict[e.symbol],date=date.today())
-    #                 putcross.save()
-    #             else:
-    #                 putcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put Crossed",opencrossed="put",time=liveData[e.symbol][5],date=date.today())
-    #                 putcross.save()
-
-
-
-    #         if liveData[e.symbol][0] > float(e.callstrike) or liveData[e.symbol][1] > float(e.callstrike):
-    #             if e.symbol in callcrossedsetDict:
-    #                 print("Yes")
-    #                 # Deleting the older
-    #                 LiveEquityResult.objects.filter(symbol = e.symbol).delete()
-    #                 # updating latest data
-    #                 print("Yes")
-    #                 callcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call Crossed",opencrossed="Nil",time=callcrossedsetDict[e.symbol],date=date.today())
-    #                 callcross.save()
-    #                 continue
-
-    #             else:
-    #                 print("Call crossed")
-    #                 callcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call Crossed",opencrossed="Nil",time=liveData[e.symbol][5],date=date.today())
-    #                 callcross.save()
-                
-    #         elif liveData[e.symbol][0] >= float(e.callone) and liveData[e.symbol][0] <= float(e.callstrike):
-
-    #             if e.symbol in callcrossedsetDict:
-    #                 print("Already crossed")
-    #                 continue
-    #             else:
-    #                 if e.symbol in callonepercentsetDict:
-    #                     print("Already crossed 1 percent")
-    #                     LiveEquityResult.objects.filter(symbol = e.symbol).delete()
-    #                     # updating latest data
-    #                     callcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call 1 percent",opencrossed="Nil",time=callonepercentsetDict[e.symbol],date=date.today())
-    #                     callcross.save()
-    #                     continue
-    #                 else:
-    #                     print("Call 1 percent")
-
-    #                     callone = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Call 1 percent",opencrossed="Nil",time=liveData[e.symbol][5],date=date.today())
-    #                     callone.save()
-
-    #         # Put
-    #         elif liveData[e.symbol][0] < float(e.putstrike) or liveData[e.symbol][2] < float(e.putstrike):
-    #             if e.symbol in putcrossedsetDict:
-    #                 # Deleting the older
-    #                 LiveEquityResult.objects.filter(symbol =e.symbol).delete()
-    #                 # updating latest data
-    #                 putcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put Crossed",opencrossed="Nil",time=putcrossedsetDict[e.symbol],date=date.today())
-    #                 putcross.save()
-    #                 print("put crossed updating only the data")
-    #                 continue
-    #             else:
-    #                 print("Put crossed")
-    #                 putcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put Crossed",opencrossed="Nil",time=liveData[e.symbol][5],date=date.today())
-    #                 putcross.save()
-
-
-    #         elif liveData[e.symbol][0] <= float(e.putone) and liveData[e.symbol][0] >= float(e.putstrike):
-    #             if e.symbol in putcrossedsetDict:
-    #                 print("Already crossed put")
-    #                 continue
-    #             else:
-    #                 if e.symbol in putonepercentsetDict:
-    #                     print("Already crossed 1 percent")
-    #                     LiveEquityResult.objects.filter(symbol =e.symbol).delete()
-    #                     # updating latest data
-    #                     putcross = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put 1 percent",opencrossed="Nil",time=putonepercentsetDict[e.symbol],date=date.today())
-    #                     putcross.save()
-    #                     continue
-    #                 else:
-    #                     print("Put 1 percent")
-    #                     putone = LiveEquityResult(symbol=e.symbol,open=liveData[e.symbol][1],high=liveData[e.symbol][2],low=liveData[e.symbol][3],prev_day_close=liveData[e.symbol][4],ltp=liveData[e.symbol][0],strike="Put 1 percent",opencrossed="Nil",time=liveData[e.symbol][5],date=date.today())
-    #                     putone.save()
-        
+       
     OITotalValue ={}
     OIChangeValue = {}
     value1 = {}
@@ -643,7 +483,7 @@ def equity(request):
     callCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Call Crossed",section__lte = 10).order_by('-time')
     putCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Put Crossed",section__lte = 10).order_by('-time')
 
-    # changes 13-01-23
+    ########### changes 13-01-23
     callCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
     putCrossed = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
     callCrossed_count = len(callCrossed)
@@ -657,35 +497,21 @@ def equity(request):
     call_fifty_below_three  = LiveEquityResult.objects.filter(change_perc__gte = 2,opencrossed='Nil').filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
     put_fifty_below_three = LiveEquityResult.objects.filter(change_perc__lte = -2,opencrossed='Nil').filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
 
-    #################
-    
+    nowTime = datetime.now(timezone('Asia/Kolkata')).time()
+    section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), equ_time(10,15)).time()
+
+    open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
+    section_remove_list = []
+
+    # excluding section symbols
+    if nowTime > section_check_time:
+        section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
+
+    remove_list = open_remove_list + section_remove_list
+
     gain = LiveSegment.objects.filter(segment__in=["above"]).order_by('-change_perc')
     loss = LiveSegment.objects.filter(segment__in=["below"]).order_by('change_perc')
-
-
-    calleven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__gte = 3).filter(strike="Call 1 percent",section__lte = 10).order_by('section')  
-    callodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True,change_perc__gte = 3).filter(strike="Call 1 percent",section__lte = 10).order_by('section') 
-    puteven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__lte = -3).filter(strike="Put 1 percent",section__lte = 10).order_by('section')  
-    putodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True,change_perc__lte = -3).filter(strike="Put 1 percent",section__lte = 10).order_by('section') 
-
-    calleven_two = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__gte = 2).filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
-    callodd_two = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True,change_perc__gte = 2).filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section') 
-    puteven_two = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__lte = -2).filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
-    putodd_two = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True,change_perc__lte = -2).filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section') 
-
-
-    call_result_odd_count =  len(callodd) + len(callCrossed_odd)
-    call_result_even_count = len(calleven) + len(callCrossed_even)
-    put_result_odd_count =  len(putodd) + len(putCrossed_odd)
-    put_result_even_count =  len(puteven) + len(putCrossed_even)
-
-    print(callodd)
-    print(calleven)
-    callcrossedeven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Call Crossed")
-    putcrossedeven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Put Crossed")
-    callcrossedodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Call Crossed")
-    putcrossedodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Put Crossed")
-
+    #################
     
     try:
         current_time = LiveOITotalAllSymbol.objects.order_by('-time')[:1]
@@ -707,7 +533,7 @@ def equity(request):
     except:
         last_run_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
-    return render(request,"equity.html",{'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+    return render(request,"equity.html",{'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 #5 Option chain Section - selected symbol calculation
 def optionChain(request):
