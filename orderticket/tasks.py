@@ -688,7 +688,7 @@ def create_currency():
     #print('difference in seconds:', round(sec, 2) )
     min = sec / 60
     #print('difference in minutes:', round(min, 2) )
-    last_run_time = Totalruntime(start_time=start_time,end_time=end_time,total_run=min)
+    last_run_time = Totalruntime(start_time=start_time,end_time=end_time,total_run=min,total_symbols=len(fnolist))
     last_run_time.save()
 
     sampleDict = {}
