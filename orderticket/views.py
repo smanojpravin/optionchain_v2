@@ -637,12 +637,32 @@ def equity(request):
     putOnePercent = LiveEquityResult.objects.filter(strike="Put 1 percent").filter(change_perc__lte=-2).order_by('-time')
     callHalfPercent = LiveEquityResult.objects.filter(strike="Call 1/2 percent").order_by('-time')
     putHalfPercent = LiveEquityResult.objects.filter(strike="Put 1/2 percent").order_by('-time')
-    callCrossed_odd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Call Crossed",section__lte = 10).order_by('-time')
+
+    callCrossed_odd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
     putCrossed_odd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Put Crossed",section__lte = 10).order_by('-time')
     callCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Call Crossed",section__lte = 10).order_by('-time')
     putCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Put Crossed",section__lte = 10).order_by('-time')
+
+    # changes 13-01-23
+    callCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    putCrossed = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    callCrossed_count = len(callCrossed)
+
+    callfifty = LiveEquityResult.objects.filter(strike="Call 1 percent",section__lte = 10,change_perc__gte = 3,opencrossed='Nil').order_by('section') 
+    putfifty = LiveEquityResult.objects.filter(strike="Put 1 percent",section__lte = 10,change_perc__lte = -3,opencrossed='Nil').order_by('section')  
+
+    callCrossed_below_three = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    putCrossed_below_three = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+
+    call_fifty_below_three  = LiveEquityResult.objects.filter(change_perc__gte = 2,opencrossed='Nil').filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
+    put_fifty_below_three = LiveEquityResult.objects.filter(change_perc__lte = -2,opencrossed='Nil').filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
+
+    #################
+    
     gain = LiveSegment.objects.filter(segment__in=["above"]).order_by('-change_perc')
     loss = LiveSegment.objects.filter(segment__in=["below"]).order_by('change_perc')
+
+
     calleven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__gte = 3).filter(strike="Call 1 percent",section__lte = 10).order_by('section')  
     callodd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True,change_perc__gte = 3).filter(strike="Call 1 percent",section__lte = 10).order_by('section') 
     puteven = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False,change_perc__lte = -3).filter(strike="Put 1 percent",section__lte = 10).order_by('section')  
@@ -687,7 +707,7 @@ def equity(request):
     except:
         last_run_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
 
-    return render(request,"equity.html",{'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+    return render(request,"equity.html",{'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'calleven_two':calleven_two,'callodd_two':callodd_two,'puteven_two':puteven_two,'putodd_two':putodd_two,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'puteven':puteven,'putodd':putodd,'put_result_even_count':put_result_even_count,'put_result_odd_count':put_result_odd_count,'call_result_even_count':call_result_even_count,'call_result_odd_count':call_result_odd_count,'callodd':callodd,'calleven':calleven,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 #5 Option chain Section - selected symbol calculation
 def optionChain(request):
