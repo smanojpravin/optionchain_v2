@@ -115,9 +115,9 @@ def create_currency():
         fnolist = list(filter(lambda x: all([x.find(y) != 0 for y in open_remove_list]), fnolist))
 
         # excluding section symbols
-        if nowTime > section_check_time:
-            section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
-            fnolist = list(filter(lambda x: all([x.find(y) != 0 for y in section_remove_list]), fnolist))
+#         if nowTime > section_check_time:
+#             section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
+#             fnolist = list(filter(lambda x: all([x.find(y) != 0 for y in section_remove_list]), fnolist))
 
         try:
             fnolist.remove('AMARAJABAT')
