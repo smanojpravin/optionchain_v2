@@ -105,7 +105,7 @@ def create_currency():
         'TECHM','TITAN','TORNTPHARM','TORNTPOWER','TRENT','TVSMOTOR','UBL','ULTRACEMCO','UPL','VEDL','VOLTAS','WHIRLPOOL','WIPRO','ZEEL','ZYDUSLIFE']
 
         gain_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__gte = 1.5).order_by('-change_perc').values_list('symbol', flat=True) 
-        loss_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__lte = 1.5).order_by('change_perc').values_list('symbol', flat=True)
+        loss_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__lte = -1.5).order_by('change_perc').values_list('symbol', flat=True)
         gain_zero_list = LiveSegment.objects.filter(segment__in=["above"], change_perc__lte = 1.5, change_perc__gte = 0).order_by('-change_perc').values_list('symbol', flat=True)
         loss_zero_list = LiveSegment.objects.filter(segment__in=["below"], change_perc__gte = -1.5, change_perc__lte = 0).order_by('change_perc').values_list('symbol', flat=True)
         fnolist = list(gain_list) + list(loss_list) + list(gain_zero_list) + list(loss_zero_list)
