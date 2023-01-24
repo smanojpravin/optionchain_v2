@@ -534,8 +534,11 @@ def equity(request):
     except:
         last_run_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
         total_symbol_count = 0
-
-    return render(request,"equity.html",{'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+    
+    livehigh = LiveHighLow.objects.filter(cross = "call")
+    livehighlow = LiveHighLow.objects.filter(cross = "put")
+    print(f"live low count {len(livehighlow)}")
+    return render(request,"equity.html",{'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 #5 Option chain Section - selected symbol calculation
 def optionChain(request):
