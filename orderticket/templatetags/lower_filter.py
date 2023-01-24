@@ -36,6 +36,19 @@ register = template.Library()
 #         return value
 
 @register.filter
+def substract_date(high,low):
+    print(float(high)-float(low))
+    return round((float(high) - float(low)),2)
+
+@register.filter
+def multiply_date(strike):
+    return float(strike)*2
+
+@register.filter
+def to_float(strike):
+    return float(strike)
+
+@register.filter
 def shrink_num(value):
     """
     Shrinks number rounding
