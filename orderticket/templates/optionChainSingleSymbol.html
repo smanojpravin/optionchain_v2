@@ -856,6 +856,7 @@ Gap:
         <li class="th" ><label>LTP</label></li>
         <li class="th"><label>STRIKE GAP</label></li>
         <li class="th"><label>LOT</label></li>
+        <li class="th"><label>IB</label></li>
         <!-- <li class="th"><label></label></li> -->
         {% if "Call" in liveEqui.0.strike %}
         {% if liveEqui.0.section|divisibleby:2%}
@@ -896,6 +897,19 @@ Gap:
           <span class="td percentile-87" style="background-color: antiquewhite; color: black;"><span class="number">{{liveEqui.0.ltp}}</span></span>
           <span class="td percentile-32"><span class="number">{{ OITotalValue.0.strikegap }}</span></span>
           <span class="td percentile-32"><span class="number">{{ symbol_lot }}</span></span>
+          <span class="td percentile-52"><span class="number">
+
+            <!-- {{ liveEqui.0.high|substract_date:liveEqui.0.low  }} -->
+            {% if liveEqui.0.high|substract_date:liveEqui.0.low < OITotalValue.0.strikegap|to_float %}
+              S  IB
+            {% elif  liveEqui.0.high|substract_date:liveEqui.0.low > OITotalValue.0.strikegap|to_float and liveEqui.0.high|substract_date:liveEqui.0.low < OITotalValue.0.strikegap|multiply_date %}
+              N IB
+            {% elif liveEqui.0.high|substract_date:liveEqui.0.low > OITotalValue.0.strikegap|multiply_date %}
+              W IB
+            {% else %}
+              -
+            {% endif %}
+          </span></span>
 
         {% if "Call" in liveEqui.0.strike %}
         <h2 style="text-align:center;color:white;font-size:small" class="badge bg-success text-wrap">Call Cross - {{liveEqui.0.section}}</h2>
