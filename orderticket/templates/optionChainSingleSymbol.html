@@ -898,9 +898,9 @@ Gap:
           <span class="td percentile-32"><span class="number">{{ OITotalValue.0.strikegap }}</span></span>
           <span class="td percentile-32"><span class="number">{{ symbol_lot }}</span></span>
           <span class="td percentile-52"><span class="number">
-
+            -
             <!-- {{ liveEqui.0.high|substract_date:liveEqui.0.low  }} -->
-            {% if liveEqui.0.high|substract_date:liveEqui.0.low < OITotalValue.0.strikegap|to_float %}
+<!--             {% if liveEqui.0.high|substract_date:liveEqui.0.low < OITotalValue.0.strikegap|to_float %}
               S  IB
             {% elif  liveEqui.0.high|substract_date:liveEqui.0.low > OITotalValue.0.strikegap|to_float and liveEqui.0.high|substract_date:liveEqui.0.low < OITotalValue.0.strikegap|multiply_date %}
               N IB
@@ -908,7 +908,7 @@ Gap:
               W IB
             {% else %}
               -
-            {% endif %}
+            {% endif %} -->
           </span></span>
 
         {% if "Call" in liveEqui.0.strike %}
