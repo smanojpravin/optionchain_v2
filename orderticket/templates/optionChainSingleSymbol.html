@@ -1396,7 +1396,7 @@ Gap:
                     <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                     <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                     <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                    <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                    <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num  }}</td>
                   </tr>
                   <tr>
                     <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1404,7 +1404,7 @@ Gap:
                     <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                     <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                     <td style="width:2%;text-align:center;color: black;">{{ record.put_percentage  }}%</td>
-                    <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                    <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                   </tr>
                   <tr style="background-color: white;">
                   <td></td>
@@ -1539,7 +1539,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1 }}</td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }}</td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
                           <!-- <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td> -->
                           {% if record.call1 > record.put2 %}
@@ -1551,11 +1551,11 @@ Gap:
 
 
                           <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td>
-                          <td style="width:2%;text-align:center;">{{ record.put1 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.put1|shrink_num }}</td>
                         </tr>
                         <tr>
                           <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
-                          <td style="width:2%;text-align:center;">{{ record.call2 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.call2|shrink_num }}</td>
 
                           <!-- <td style="width:1%;text-align:center;background-color:#F9DDDC;border-right-color: #F9DDDC"></td> -->
 
@@ -1567,7 +1567,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2 }}</td>
+                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num }}</td>
                         </tr>
 
                         <tr style="background-color: white;">
@@ -1615,7 +1615,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1 }}</td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }}</td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
 
                           <!-- <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td> -->
@@ -1628,11 +1628,11 @@ Gap:
                           {% endif %}
 
                           <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td>
-                          <td style="width:2%;text-align:center;">{{ record.put1 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.put1|shrink_num }}</td>
                         </tr>
                         <tr>
                           <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
-                          <td style="width:2%;text-align:center;">{{ record.call2 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.call2|shrink_num }}</td>
 
                           <!-- <td style="width:1%;text-align:center;background-color:#F9DDDC;border-right-color: #F9DDDC"></td> -->
 
@@ -1645,7 +1645,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2 }}</td>
+                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num }}</td>
                         </tr>
                         <tr style="background-color: white;">
                         <td></td>
@@ -1692,7 +1692,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                         <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                         <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num  }}</td>
                       </tr>
                       <tr>
                         <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1700,7 +1700,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                         <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                         <td style="width:2%;text-align:center;color:black;">{{ record.put_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                       </tr>
                       <tr style="background-color: white;">
                       <td></td>
@@ -1835,7 +1835,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1 }}</td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }}</td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
                           <!-- <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td> -->
                           
@@ -1848,11 +1848,11 @@ Gap:
 
 
                           <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td>
-                          <td style="width:2%;text-align:center;">{{ record.put1 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.put1|shrink_num }}</td>
                         </tr>
                         <tr>
                           <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
-                          <td style="width:2%;text-align:center;">{{ record.call2 }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.call2|shrink_num }}</td>
 
                           {% if record.call1 < record.put2 %}
                           <td style="width:1%;text-align:center;background-color:#F9DDDC;border-right-color: #F9DDDC"><i class="fa fa-cog" style="color:blue;font-size: smaller;" aria-hidden="true"></i> </td>
@@ -1864,7 +1864,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2 }}</td>
+                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num }}</td>
                         </tr>
 
                         <tr style="background-color: white;">
@@ -1909,7 +1909,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1 }}</td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }}</td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
 
                           {% if record.call1 > record.put2 %}
@@ -1922,11 +1922,11 @@ Gap:
                           <!-- <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td> -->
 
                           <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td>
-                          <td style="width:2%;text-align:center;">{{ record.put1  }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.put1|shrink_num  }}</td>
                         </tr>
                         <tr>
                           <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
-                          <td style="width:2%;text-align:center;">{{ record.call2  }}</td>
+                          <td style="width:2%;text-align:center;">{{ record.call2|shrink_num  }}</td>
                           {% if record.call1 < record.put2 %}
                           <td style="width:1%;text-align:center;background-color:#F9DDDC;border-right-color: #F9DDDC"><i class="fa fa-cog" style="color:blue;font-size: smaller;" aria-hidden="true"></i> </td>
                           {% else %}
@@ -1939,7 +1939,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2  }}</td>
+                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num  }}</td>
                         </tr>
                         <tr style="background-color: white;">
                         <td></td>
@@ -1985,7 +1985,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#C8EFD5"> <b>{{ record.max_ceoi_strike }}</b><span style="color:green">  <b>CE</b></span> </td>
                         <td style="width:2%;color:black;text-align:center;">{{ record.call_final }}</td>
                         <td style="width:2%;text-align:center;">{{ record.call_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total  }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.call_ceoi_total|shrink_num }}</td>
                       </tr>
                       <tr>
                         <!-- <td style="width:2%">{{ OIChangeValue.peltt|time }}</td> -->
@@ -1993,7 +1993,7 @@ Gap:
                         <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.put_max_ceoi_strike }}</b><span style="color:red">  <b>PE</b></span></td>
                         <td style="width:2%;text-align:center;">{{ record.put_final  }}</td>
                         <td style="width:2%;text-align:center;color: black;">{{ record.put_percentage  }}%</td>
-                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total }}</td>
+                        <td style="width:2%;text-align:center;">{{ record.put_ceoi_total|shrink_num }}</td>
                       </tr>
                       <tr style="background-color: white;">
                       <td></td>
