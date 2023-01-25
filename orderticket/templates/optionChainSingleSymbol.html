@@ -856,7 +856,7 @@ Gap:
         <li class="th" ><label>LTP</label></li>
         <li class="th"><label>STRIKE GAP</label></li>
         <li class="th"><label>LOT</label></li>
-        <li class="th"><label>IB</label></li>
+        <li class="th"><label>IB ({{liveEqui.0.high|substract_date:liveEqui.0.low}})</label></li>
         <!-- <li class="th"><label></label></li> -->
         {% if "Call" in liveEqui.0.strike %}
         {% if liveEqui.0.section|divisibleby:2%}
