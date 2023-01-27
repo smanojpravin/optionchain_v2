@@ -327,6 +327,7 @@ class LiveHighLow(models.Model):
     low = models.CharField(max_length=20,default="")
     ltp = models.CharField(max_length=20)
     cross = models.CharField(max_length=20, default='None')
+    high_low_diff = models.FloatField(default=0)
 
     def __str__(self):
         return self.symbol
