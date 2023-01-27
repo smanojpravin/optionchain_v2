@@ -597,7 +597,7 @@ def create_currency():
         TrueDatausername = 'tdws127'
         TrueDatapassword = 'saaral@127'
 
-        expiry = "25-Jan-2023"
+        expiry = "23-Feb-2023"
         dte = dt.strptime(expiry, '%d-%b-%Y')
         td_obj = TD('tdwsp127', 'saaral@127', log_level= logging.ERROR)
 
@@ -708,7 +708,7 @@ def create_currency():
                     print("Proper graceful exit")
 
                 print(f"############################################  {symbol} ###############################")
-                expiry = "25-Jan-2023"
+                expiry = "23-Feb-2023"
                 dte = dt.strptime(expiry, '%d-%b-%Y')
                 td_obj = TD('tdwsp127', 'saaral@127')
                 first_chain = td_obj.start_option_chain( symbol , dt(dte.year , dte.month , dte.day) ,chain_length = 75)
