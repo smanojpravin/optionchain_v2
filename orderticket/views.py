@@ -486,11 +486,11 @@ def equity(request):
     callfifty = LiveEquityResult.objects.filter(strike="Call 1 percent",section__lte = 10,change_perc__gte = 3,opencrossed='Nil').order_by('section') 
     putfifty = LiveEquityResult.objects.filter(strike="Put 1 percent",section__lte = 10,change_perc__lte = -3,opencrossed='Nil').order_by('section')  
 
-    callCrossed_below_three = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
-    putCrossed_below_three = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    callCrossed_below_three = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil',change_perc__gte = 1.5,change_perc__lte = 3).order_by('-time')
+    putCrossed_below_three = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil',change_perc__lte = -1.5,change_perc__gte = -3).order_by('-time')
 
-    call_fifty_below_three  = LiveEquityResult.objects.filter(change_perc__gte = 2,opencrossed='Nil').filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
-    put_fifty_below_three = LiveEquityResult.objects.filter(change_perc__lte = -2,opencrossed='Nil').filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
+    call_fifty_below_three  = LiveEquityResult.objects.filter(change_perc__gte = 1.5,change_perc__lte = 3,opencrossed='Nil').filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
+    put_fifty_below_three = LiveEquityResult.objects.filter(change_perc__lte = -1.5,change_perc__gte = -3,opencrossed='Nil').filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
 
     nowTime = datetime.now(timezone('Asia/Kolkata')).time()
     section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), equ_time(10,15)).time()
