@@ -544,10 +544,12 @@
       <ul class="list-group">
         {% for value in livehigh %}
         {%if value.symbol not in remove_list%}
+          {%if value.symbol in call_check_list %}
         <li style="font-size:13px;padding:0px" class="list-group-item">
           <!-- <b class="badge badge-success">{{ value.symbol }}</b>  -->
           <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
           | <b>High:{{ value.high|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
+           {% endif %}
         {% endif %}
         {% endfor %}
         </ul>
@@ -664,10 +666,12 @@
       <ul class="list-group">
         {% for value in livehighlow %}
         {%if value.symbol not in remove_list%}
+          {%if value.symbol in put_check_list %}
         <li style="font-size:13px;padding:0px" class="list-group-item">
           <!-- <b class="badge badge-danger">{{ value.symbol }}</b>  -->
           <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
           | <b>Low:{{ value.low|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
+          {% endif %}
         {% endif %}
         {% endfor %}
         </ul>
