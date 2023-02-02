@@ -856,9 +856,9 @@ Gap:
         <li class="th" ><label>LTP</label></li>
         <li class="th"><label>STRIKE GAP</label></li>
         <li class="th"><label>LOT</label></li>
-        <li class="th"><label>
+        <li class="th"><label> IB ({{livehighlow.0.high_low_diff}})
 
-         {% if livehighlow.0.high_low_diff|to_float < OITotalValue.0.strikegap|to_float %}
+<!--          {% if livehighlow.0.high_low_diff|to_float < OITotalValue.0.strikegap|to_float %}
           S  IB ({{livehighlow.0.high_low_diff}})
         {% elif  livehighlow.0.high_low_diff|to_float > OITotalValue.0.strikegap|to_float and livehighlow.0.high_low_diff|to_float< OITotalValue.0.strikegap|multiply_date %}
           N IB ({{livehighlow.0.high_low_diff}})
@@ -866,7 +866,7 @@ Gap:
           W IB ({{livehighlow.0.high_low_diff}})
         {% else %}
           -
-        {% endif %}
+        {% endif %} -->
         </label></li>
         {% if "Call" in liveEqui.0.strike %}
         {% if liveEqui.0.section|divisibleby:2%}
