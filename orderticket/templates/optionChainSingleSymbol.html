@@ -858,11 +858,11 @@ Gap:
         <li class="th"><label>LOT</label></li>
         <li class="th"><label>
 
-         {% if livehighlow.0.high_low_diff < OITotalValue.0.strikegap|to_float %}
+         {% if livehighlow.0.high_low_diff|to_float < OITotalValue.0.strikegap|to_float %}
           S  IB ({{livehighlow.0.high_low_diff}})
-        {% elif  livehighlow.0.high_low_diff > OITotalValue.0.strikegap|to_float and livehighlow.0.high_low_diff< OITotalValue.0.strikegap|multiply_date %}
+        {% elif  livehighlow.0.high_low_diff|to_float > OITotalValue.0.strikegap|to_float and livehighlow.0.high_low_diff|to_float< OITotalValue.0.strikegap|multiply_date %}
           N IB ({{livehighlow.0.high_low_diff}})
-        {% elif livehighlow.0.high_low_diff > OITotalValue.0.strikegap|multiply_date %}
+        {% elif livehighlow.0.high_low_diff|to_float > OITotalValue.0.strikegap|multiply_date %}
           W IB ({{livehighlow.0.high_low_diff}})
         {% else %}
           -
