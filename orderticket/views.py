@@ -629,7 +629,7 @@ def optionChain(request):
 "TVSMOTOR":700,"UBL":400,"ULTRACEMCO":100,"UPL":1300,"VOLTAS":600,"WHIRLPOOL":350,"WIPRO":1500}
 	
     symbol_lot = lot_dict[symbol]
-    livehighlow = LiveHighLow.objects.all()
+    livehighlow = LiveHighLow.objects.filter(symbol=symbol)
     
     if LiveOI:
         return render(request, 'optionChainSingleSymbol.html', {'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
