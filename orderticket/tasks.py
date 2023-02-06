@@ -297,8 +297,8 @@ def create_currency():
                 pe_oi_total = (peplusoneOI + pecenterOI + peminusoneOI)
                 put_final = int(pe_oi_strike_total)//pe_oi_total
                 put_ceoi_total = pe_final['oi_change'].sum()
-                call_percentage = (max_ceoi/put_max_ceoi)
-                put_percentage = (put_max_ceoi/max_ceoi)
+                call_percentage = max_ceoi
+                put_percentage = put_max_ceoi
 
                 print('------Target Calculation - PUT - Completed.')
                 print(f"call_percentage: {int(call_percentage)}")
