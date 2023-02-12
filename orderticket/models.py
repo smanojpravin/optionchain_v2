@@ -1,6 +1,7 @@
 from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # class Customer(models.Model):
 #     ACTIVE_CHOICES = (
@@ -60,6 +61,12 @@ class HistoryOIChange(models.Model):
     put_final = models.IntegerField(default=0)
     call_final = models.IntegerField(default=0)
 
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
+
     def __str__(self):
         return self.call1+" "+self.callstrike+" "+self.symbol
     class Meta:
@@ -99,6 +106,12 @@ class LiveOIChange(models.Model):
     put_ceoi_total =  models.IntegerField(default=0)
     put_final = models.IntegerField(default=0)
     call_final = models.IntegerField(default=0)
+    
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.call1+" "+self.callstrike+" "+self.symbol
@@ -179,7 +192,7 @@ class LiveOITotalAllSymbol(models.Model):
 
 class LiveEquityResult(models.Model):
     time = models.TimeField(auto_now_add=False)
-    date = models.DateTimeField(auto_now_add=False)
+    date = models.DateTimeField(auto_now_add=True)
     symbol = models.CharField(max_length=20,default="")
     open = models.CharField(max_length=20,default="")
     high = models.CharField(max_length=20,default="")
@@ -265,6 +278,12 @@ class FirstLiveOIChange(models.Model):
     put_ceoi_total =  models.IntegerField(default=0)
     put_final = models.IntegerField(default=0)
     call_final = models.IntegerField(default=0)
+    
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.call1+" "+self.callstrike+" "+self.symbol
