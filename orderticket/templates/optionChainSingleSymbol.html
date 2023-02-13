@@ -1297,7 +1297,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num  }}</td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num  }} - {{ record.max_call_volume }} </td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
                           {% if record.call1 > record.put2 %}
                           <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"><i class="fa fa-cog" style="color:blue;font-size: smaller;" aria-hidden="true"></i></td>
@@ -1319,7 +1319,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color: darkred;color: white;">{{ record.put2|shrink_num  }}</td>
+                          <td style="width:2%;text-align:center;background-color: darkred;color: white;">{{ record.put2|shrink_num  }} - {{ record.max_put_volume }}</td>
                         </tr>
 
                       {% endfor %}
@@ -1845,7 +1845,7 @@ Gap:
                         <tr>
                         {% comment %} colspan=2 {% endcomment %}
                         <td rowspan=2 style="width:2%"><b>{{ record.time|time }}<b></td>
-                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }} </td>
+                          <td style="width:2%;background-color:green;color:white;text-align:center;">{{ record.call1|shrink_num }}  - {{ record.max_call_volume }} </td>
                           {% comment %} <td style="width:2%;text-align:center"> <i class="fas fa-dot-circle xxx-small;color:blue"></i> <b>{{ record.callstrike }}</b><span style="color:green">  <b>CE</b></span> </td> {% endcomment %}
                           <!-- <td style="width:1%;text-align:center;background-color:#C8EFD5;border-right-color: #C8EFD5"></td> -->
                           
@@ -1874,7 +1874,7 @@ Gap:
 
                           <td style="width:4%;text-align:center;background-color:#F9DDDC"><b>{{ record.putstrike }}</b><span style="color:red">  <b>PE</b></span></td>
                           
-                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num }}</td>
+                          <td style="width:2%;text-align:center;background-color:darkred;color: white;">{{ record.put2|shrink_num }} - {{ record.max_put_volume }} </td>
                         </tr>
 
                         <tr style="background-color: white;">
