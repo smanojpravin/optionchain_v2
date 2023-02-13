@@ -374,8 +374,8 @@ def create_currency():
                 peoi2 = final_df.iloc[count]['oi_change']
                 poi_double = len(final_df[final_df['oi_change'] == peoi2])
 
-                if coi_double > 1 or poi_double > 1:
-                    return False
+                #if coi_double > 1 or poi_double > 1:
+                 #   return False
 
                 OIChan = {"max_cal_volume_strike":max_volume_strike,"max_ceoi_strike":max_ceoi_strike, "put_max_ceoi_strike":put_max_ceoi_strike,"call_percentage":call_percentage,"put_percentage":put_percentage,"call_ceoi_total":call_ceoi_total,"put_ceoi_total":put_ceoi_total,"celtt":celtt,"ceoi1":ceoi1,"cestrike":cestrike,"peoi1":peoi1,"peltt":peltt,"peoi2":peoi2,"pestrike":pestrike,"ceoi2":ceoi2,"call_final":call_final, "put_final":put_final}
 
