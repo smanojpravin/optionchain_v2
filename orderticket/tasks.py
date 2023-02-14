@@ -278,7 +278,7 @@ def create_currency():
                 # final put calculation:
                 pe_final = df.loc[df['type'] == "PE"]
                 final_df_put = pe_final.loc[pe_final['oi_change'] != 0].sort_values('oi_change', ascending=False)
-                volume_df_put = ce.loc[ce['volume'] != 0].sort_values('volume', ascending=False)
+                volume_df_put = pe.loc[pe['volume'] != 0].sort_values('volume', ascending=False)
                 
                 max_put_volume = volume_df_put.iloc[0]['volume']
                 max_put_volume_strike = volume_df_put.iloc[0]['strike']
