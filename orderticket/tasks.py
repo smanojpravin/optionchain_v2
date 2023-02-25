@@ -644,7 +644,7 @@ def create_currency():
         TrueDatausername = 'tdws127'
         TrueDatapassword = 'saaral@127'
 
-        expiry = "23-Feb-2023"
+        expiry = "29-Mar-2023"
         dte = dt.strptime(expiry, '%d-%b-%Y')
         td_obj = TD('tdwsp127', 'saaral@127', log_level= logging.ERROR)
 
