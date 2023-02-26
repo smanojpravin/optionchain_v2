@@ -34,5 +34,9 @@ urlpatterns = [
     #path('customerpastorders/',views.customerpastorders,name='customerpastorders'),
     path('OptionChainSingle/', views.optionChain, name='optionChain'),
     path('equity/', views.equity, name='equity'),
+    path('secondhome/', views.secondhome, name='secondhome'),
+    path('seconoptionChain/', views.seconoptionChain, name='seconoptionChain'),
+    path('secondequity/', views.secondequity, name='secondequity'),
+    
     
 ]
