@@ -41,7 +41,7 @@
   <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="width: 60%;background-color: #F4F1E9;padding: 0em;">
     <div class="my-3 py-3">
 
-      <form class="form-inline" method="POST" id="optionchainform" fno-optionchain-url="{% url 'optionChain' %}" >
+      <form class="form-inline" method="POST" id="optionchainform" fno-optionchain-url="{% url 'seconoptionChain' %}" >
         {% csrf_token %}
 
             <div class="form-group mx-sm-3 mb-2"></div>
@@ -103,7 +103,7 @@ $("#optionchainform").submit(function() {
 
 
 function executeQuery1() {
-    var url = '{% url 'equity' %}';
+    var url = '{% url 'secondequity' %}';
     $.ajax({
     url: url,
     async: false, 
