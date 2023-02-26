@@ -35,6 +35,210 @@ from datetime import time as equ_time
 from pytz import timezone
 from django.db.models import Q
 
+@login_required(login_url='login')
+def secondhome(request):
+    today = datetime.today()
+    print(today)
+    # latestInstruction = Instruction.objects.all()
+    latestInstruction = []
+
+    # fnolist = ['AARTIIND', 'ABBOTINDIA', 'ABFRL', 'ACC', 'ADANIPORTS', 'ALKEM', 'AMARAJABAT', 'AMBUJACEM', 'APOLLOHOSP', 'APOLLOTYRE', 'ASIANPAINT', 'ASTRAL', 'ATUL', 'AUBANK', 'AUROPHARMA', 'AXISBANK', 'BAJAJ-AUTO', 'BAJAJFINSV', 'BAJFINANCE', 'BALRAMCHIN', 'BANDHANBNK', 'BATAINDIA', 'BEL', 'BERGEPAINT', 'BHARATFORG', 'BHARTIARTL', 'BIOCON', 'BOSCHLTD', 'BPCL', 'BSOFT', 'CANBK', 'CANFINHOME', 'CHAMBLFERT', 'CHOLAFIN', 'CIPLA', 'COALINDIA', 'COFORGE', 'COLPAL', 'CONCOR', 'COROMANDEL', 'CROMPTON', 'CUMMINSIND', 'DABUR', 'DALBHARAT', 'DEEPAKNTR', 'DELTACORP', 'DIVISLAB', 'DIXON', 'DLF', 'DRREDDY', 'ESCORTS', 'GLENMARK', 'GNFC', 'GODREJCP', 'GODREJPROP', 'GRANULES', 'GRASIM', 'GSPL', 'GUJGASLTD', 'HAL', 'HAVELLS', 'HCLTECH', 'HDFC', 'HDFCAMC', 'HDFCBANK', 'HDFCLIFE', 'HINDALCO', 'HINDCOPPER', 'HINDPETRO', 'HINDUNILVR', 'HONAUT', 'IBULHSGFIN', 'ICICIBANK', 'ICICIGI', 'ICICIPRULI', 'IEX', 'IGL', 'INDHOTEL', 'INDIACEM', 'INDIAMART', 'INDIGO', 'INDUSINDBK', 'INDUSTOWER', 'INFY', 'INTELLECT', 'IPCALAB', 'IRCTC', 'ITC', 'JINDALSTEL', 'JKCEMENT', 'JSWSTEEL', 'JUBLFOOD', 'KOTAKBANK', 'LALPATHLAB', 'LAURUSLABS', 'LICHSGFIN', 'LT', 'LTI', 'LTTS', 'LUPIN', 'M&MFIN', 'MARICO', 'MARUTI', 'MCDOWELL-N', 'MCX', 'MFSL', 'MGL', 'MINDTREE', 'MOTHERSON', 'MPHASIS', 'MRF', 'MUTHOOTFIN', 'NATIONALUM', 'NAUKRI', 'NAVINFLUOR', 'NMDC', 'OBEROIRLTY', 'OFSS', 'ONGC', 'PAGEIND', 'PERSISTENT', 'PETRONET', 'PIDILITIND', 'PIIND', 'POLYCAB', 'POWERGRID', 'PVR', 'RAIN', 'RAMCOCEM', 'RELIANCE', 'SBICARD', 'SBILIFE', 'SBIN', 'SHREECEM', 'SIEMENS', 'SRF', 'SRTRANSFIN', 'SUNPHARMA', 'SUNTV', 'SYNGENE', 'TATACHEM', 'TATACOMM', 'TATACONSUM', 'TATAMOTORS', 'TATAPOWER', 'TATASTEEL', 'TECHM', 'TORNTPHARM', 'TORNTPOWER', 'TRENT', 'TVSMOTOR', 'UBL', 'ULTRACEMCO', 'UPL', 'VOLTAS', 'WHIRLPOOL', 'WIPRO', 'ZEEL', 'ZYDUSLIFE']
+    fnolist = ['AARTIIND','ABB','ACC','ABFRL','ADANIENT','ADANIPORTS','AMBUJACEM','APOLLOHOSP','ASIANPAINT','ATUL','AUBANK','AUROPHARMA','AXISBANK',
+	       'BAJAJFINSV','BAJFINANCE','BALKRISIND','BALRAMCHIN','BANDHANBNK','BATAINDIA','BERGEPAINT','BHARATFORG','BHARTIARTL','BPCL','BRITANNIA',
+	       'BSOFT','CANFINHOME','CHAMBLFERT','CHOLAFIN','CIPLA','COFORGE','COLPAL','CONCOR','COROMANDEL','CROMPTON','CUMMINSIND','DABUR','DALBHARAT',
+	       'DELTACORP','DIVISLAB','DIXON','DLF','DRREDDY','EICHERMOT','ESCORTS','GLENMARK','GNFC','GODREJCP','GODREJPROP','GRANULES','GRASIM',
+	       'GUJGASLTD','HAVELLS','HCLTECH','HDFC','HDFCBANK','HDFCLIFE','HEROMOTOCO','HINDALCO','HINDUNILVR','ICICIBANK','ICICIGI','ICICIPRULI',
+	       'IGL','INDHOTEL','INDIAMART','INDIGO','INDUSINDBK','INFY','INTELLECT','IPCALAB','IRCTC','JINDALSTEL','JKCEMENT','JSWSTEEL','JUBLFOOD',
+	       'KOTAKBANK','LALPATHLAB','LAURUSLABS','LICHSGFIN','LT','LTIM','LTTS','LUPIN','M&M','MARICO','MARUTI','MCDOWELL-N','MCX','METROPOLIS',
+	       'MFSL','MGL','MUTHOOTFIN','NAUKRI','NAVINFLUOR','NESTLEIND','OBEROIRLTY','PEL','PERSISTENT','PIIND','POLYCAB','PVR','RAMCOCEM','SBICARD',
+	       'SBILIFE','SBIN','SHREECEM','SHRIRAMFIN','SUNPHARMA','SUNTV','SYNGENE','TATACHEM','TATACOMM','TATACONSUM','TATAMOTORS','TCS','TECHM',
+	       'TITAN','TORNTPHARM','TORNTPOWER','TRENT','TVSMOTOR','UBL','ULTRACEMCO','UPL','VOLTAS','WHIRLPOOL','WIPRO']
+
+    tz = timezone('Asia/Kolkata')
+    todays_date = datetime.now(tz).date()
+
+    return render(request,'ordersubmissionprint.html',{'todays_date':todays_date,'fnolist':fnolist,'latestInstruction':latestInstruction})
+
+def seconoptionChain(request):
+    # Getting the Symbol & Expiry selected by user.
+    print(request)
+    print(request.GET)
+    
+    if len(request.GET)>0:
+        symbol = request.GET["symbol"]
+        print("GET")
+    else:
+        symbol = request.POST['symbol']
+        print("POST")
+        print(symbol)
+    # expiry = request.POST['expiry_selected']
+
+    # Equity data
+    symbol = symbol.strip()
+    liveEqui = LiveEquityResult.objects.filter(symbol=symbol)
+    print("printing live equi")
+    print(liveEqui)
+
+    # Optionchain data
+    LiveOI = LiveOITotal.objects.filter(symbol=symbol).order_by('-time')[:1]
+    print(LiveOI)
+    LiveChangeOI = LiveOIChange.objects.filter(symbol=symbol)
+    print(LiveChangeOI)
+    LiveChangePercentOI = LiveOIPercentChange.objects.filter(symbol=symbol)
+    print(LiveChangePercentOI)
+
+    # History data
+    HistoryOITot = HistoryOITotal.objects.filter(symbol=symbol).order_by('-time')
+    HistoryOIChg = HistoryOIChange.objects.filter(symbol=symbol).order_by('-time')
+    HistoryOIPercentChg = HistoryOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
+
+    FirstOITot = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('-time')
+    FirstOIChg = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('-time')
+    FirstOIPercentChg = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
+
+
+    if len(FirstOITot) > 0:
+        early_total_oi = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
+    else:
+        early_total_oi = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('time')[:1]
+
+    if len(FirstOIChg) > 0:
+        print('*********************************** Live oi change *************************************')
+        early_change_oi = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
+    else:
+        early_change_oi = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('time')[:1]
+
+    if len(FirstOIPercentChg) > 0:
+        early_percent_change = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
+        print(early_percent_change)
+    else:
+        early_percent_change = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
+	
+
+    from datetime import datetime
+    import pytz
+    dateToday = datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%d-%m-%Y')
+    print(dateToday)
+    print('*********************************** Live oi change *************************************')
+    for item in early_change_oi:
+        print(item.put_ceoi_total)
+    print(early_change_oi)
+    print('*********************************** Live oi change *************************************')
+    
+    
+    try:
+        current_time = LiveOITotalAllSymbol.objects.order_by('-time')[:1]
+        option_timing = current_time[0].time
+        option_symbol = current_time[0].symbol
+    except:
+        option_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
+        option_symbol = ''
+
+    # lot_dict = {'ACC': 250, 'AMBUJACEM': 1800, 'AARTIIND': 850, 'ASTRAL': 275, 'AUBANK': 1000, 'ABBOTINDIA': 40, 'ABFRL': 2600, 'ALKEM': 200, 'AMARAJABAT': 1000, 'APOLLOHOSP': 125, 'ATUL': 75, 'AUROPHARMA': 1000, 'AXISBANK': 1200, 'BAJAJFINSV': 50, 'BAJFINANCE': 125, 'CHOLAFIN': 1250, 'BALRAMCHIN': 1600, 'BANDHANBNK': 1800, 'BATAINDIA': 275, 'BERGEPAINT': 1100, 'BHARTIARTL': 950, 'BIOCON': 2300, 'ASIANPAINT': 200, 'BOSCHLTD': 50, 'BPCL': 1800, 'BSOFT': 1300, 'CANFINHOME': 975, 'CIPLA': 650, 'COFORGE': 150, 'BAJAJ-AUTO': 250, 'COLPAL': 350, 'CONCOR': 1000, 'COROMANDEL': 700, 'DEEPAKNTR': 250, 'DIVISLAB': 150, 'DLF': 1650, 'DRREDDY': 125, 'BHARATFORG': 1000, 'ESCORTS': 550, 'GLENMARK': 1150, 'GNFC': 1300, 'GODREJPROP': 325, 'GRANULES': 2000, 'GUJGASLTD': 1250, 'HAL': 475, 'HCLTECH': 700, 'DABUR': 1250, 'HDFC': 300, 'HDFCAMC': 300, 'HDFCBANK': 550, 'HDFCLIFE': 1100, 'GRASIM': 475, 'HINDPETRO': 2700, 'HINDUNILVR': 300, 'HONAUT': 15, 'ICICIBANK': 1375, 'HINDALCO': 1075, 'INDIAMART': 150, 'INDUSINDBK': 900, 'INDUSTOWER': 2800, 'INFY': 300, 'INTELLECT': 750, 'IPCALAB': 650, 'IRCTC': 875, 'JINDALSTEL': 1250, 'JUBLFOOD': 1250, 'KOTAKBANK': 400, 'LALPATHLAB': 250, 'LAURUSLABS': 900, 'LICHSGFIN': 2000, 'LT': 300, 'LTI': 150, 'LTTS': 200, 'LUPIN': 850, 'MARICO': 1200, 'MARUTI': 100, 'MCDOWELL-N': 625, 'ADANIPORTS': 1250, 'MFSL': 650, 'MGL': 800, 'MINDTREE': 200, 'MPHASIS': 175, 'MRF': 10, 'MUTHOOTFIN': 375, 'NAM-INDIA': 1600, 'NAUKRI': 125, 'NAVINFLUOR': 225, 'OFSS': 200, 'ICICIPRULI': 1500, 'PAGEIND': 15, 'PERSISTENT': 150, 'PIDILITIND': 250, 'PIIND': 250, 'PVR': 407, 'RAIN': 3500, 'SBICARD': 800, 'SBILIFE': 750, 'SHREECEM': 25, 'SIEMENS': 275, 'SRF': 375, 'SUNTV': 1500, 'TATACOMM': 500, 'TATACONSUM': 900, 'TATAMOTORS': 1425, 'DALBHARAT': 500, 'TATASTEEL': 4250, 'TECHM': 600, 'TORNTPHARM': 500, 
+    #     'TORNTPOWER': 1500, 'TRENT': 725, 'TVSMOTOR': 1400, 'UPL': 1300, 'WHIRLPOOL': 350, 'WIPRO': 1000, 'ZEEL': 3000, 'JSWSTEEL': 1350, 'OBEROIRLTY': 700, 'RELIANCE': 250, 'CHAMBLFERT': 1500, 'CROMPTON': 1500, 'CUMMINSIND': 600, 'DELTACORP': 2300, 'DIXON': 125, 'TATACHEM': 1000, 'GODREJCP': 1000, 'HAVELLS': 500, 'ICICIGI': 425, 'IGL': 1375, 'INDIGO': 300, 'JKCEMENT': 250, 'SUNPHARMA': 700, 'MCX': 400, 'POLYCAB': 300, 'RAMCOCEM': 850, 'SRTRANSFIN': 600, 'SYNGENE': 1000, 'UBL': 400, 'ULTRACEMCO': 100, 'VOLTAS': 500, 'ZYDUSLIFE': 1800, 'SBIN': 1500, 'GSPL': 2500,'APOLLOTYRE':3500,'BEL':3800,'CANBK':2700,'COALINDIA':4200,'HINDCOPPER':4300,'IBULHSGFIN':4000,'IEX':3750,'INDHOTEL':4022,'INDIACEM':2900,'ITC':3200,'M&MFIN':4000,'MOTHERSON':4500,'NATIONALUM':4250,'NMDC':3350,'ONGC':3850,'PETRONET':3000,'POWERGRID':2700,'TATAPOWER':3375}
+    
+
+    lot_dict = {"AARTIIND":850,"ABB":250,"ACC":250,"ABFRL":2600,"ADANIENT":250,"ADANIPORTS":625,"AMBUJACEM":1800,"APOLLOHOSP":125,"ASIANPAINT":200,"ATUL":75,"AUBANK":1000,
+"AUROPHARMA":1000,"AXISBANK":1200,"BAJAJFINSV":500,"BAJFINANCE":125,"BALKRISIND":300,"BALRAMCHIN":1600,"BANDHANBNK":1800,"BATAINDIA":275,"BERGEPAINT":1100,
+"BHARATFORG":1000,"BHARTIARTL":950,"BPCL":1800,"BRITANNIA":200,"BSOFT":2000,"CANFINHOME":975,"CHAMBLFERT":1500,"CHOLAFIN":1250,"CIPLA":650,"COFORGE":150,
+"COLPAL":350,"CONCOR":1000,"COROMANDEL":700,"CROMPTON":1500,"CUMMINSIND":600,"DABUR":1250,"DALBHARAT":500,"DELTACORP":2800,"DIVISLAB":150,"DIXON":125,"DLF":1650,
+"DRREDDY":125,"EICHERMOT":175,"ESCORTS":275,"GLENMARK":1450,"GNFC":1300,"GODREJCP":1000,"GODREJPROP":425,"GRANULES":2000,"GRASIM":475,"GUJGASLTD":1250,"HAVELLS":500,
+"HCLTECH":700,"HDFC":300,"HDFCBANK":550,"HDFCLIFE":1100,"HEROMOTOCO":300,"HINDALCO":1400,"HINDUNILVR":300,"ICICIBANK":700,"ICICIGI":425,"ICICIPRULI":1500,
+"IGL":1375,"INDHOTEL":2000,"INDIAMART":150,"INDIGO":300,"INDUSINDBK":450,"INFY":400,"INTELLECT":1000,"IPCALAB":650,"IRCTC":875,"JINDALSTEL":1250,"JKCEMENT":250,
+"JSWSTEEL":1350,"JUBLFOOD":1250,"KOTAKBANK":400,"LALPATHLAB":250,"LAURUSLABS":1100,"LICHSGFIN":2000,"LT":300,"LTIM":150,"LTTS":200,"LUPIN":850,"M&M":700,"MARICO":1200,
+"MARUTI":100,"MCDOWELL-N":625,"MCX":400,"METROPOLIS":400,"MFSL":650,"MGL":800,"MUTHOOTFIN":550,"NAUKRI":125,"NAVINFLUOR":150,"NESTLEIND":40,"OBEROIRLTY":700,"PEL":550,
+"PERSISTENT":175,"PIIND":250,"POLYCAB":300,"PVR":407,"RAMCOCEM":850,"SBICARD":800,"SBILIFE":750,"SBIN":1500,"SHREECEM":25,"SHRIRAMFIN":600,"SUNPHARMA":700,"SUNTV":1500,
+"SYNGENE":1000,"TATACHEM":500,"TATACOMM":500,"TATACONSUM":900,"TATAMOTORS":1425,"TCS":175,"TECHM":600,"TITAN":375,"TORNTPHARM":500,"TORNTPOWER":1500,"TRENT":400,
+"TVSMOTOR":700,"UBL":400,"ULTRACEMCO":100,"UPL":1300,"VOLTAS":600,"WHIRLPOOL":350,"WIPRO":1500}
+	
+    symbol_lot = lot_dict[symbol]
+    livehighlow = LiveHighLow.objects.filter(symbol=symbol)
+    
+    if LiveOI:
+        return render(request, 'optionChainSingleSymbolprint.html', {'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
+    else:
+        return render(request, 'optionChainNoData.html')
+
+def secondequity(request):
+       
+    OITotalValue ={}
+    OIChangeValue = {}
+    value1 = {}
+    value2 = {}
+    strikeGap = {}
+    three_list = list(EquityThree.objects.all().values_list('symbol', flat=True)) 
+    callOnePercent = LiveEquityResult.objects.filter(strike="Call 1 percent").filter(change_perc__gte=2).order_by('-time')
+    putOnePercent = LiveEquityResult.objects.filter(strike="Put 1 percent").filter(change_perc__lte=-2).order_by('-time')
+    callHalfPercent = LiveEquityResult.objects.filter(strike="Call 1/2 percent").order_by('-time')
+    putHalfPercent = LiveEquityResult.objects.filter(strike="Put 1/2 percent").order_by('-time')
+
+    callCrossed_odd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    putCrossed_odd = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=True).filter(strike="Put Crossed",section__lte = 10).order_by('-time')
+    callCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Call Crossed",section__lte = 10).order_by('-time')
+    putCrossed_even = LiveEquityResult.objects.annotate(odd=F('section') % 2).filter(odd=False).filter(strike="Put Crossed",section__lte = 10).order_by('-time')
+
+    ########### changes 13-01-23
+    callCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    putCrossed = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil').order_by('-time')
+    callCrossed_count = len(callCrossed)
+
+    callfifty = LiveEquityResult.objects.filter(strike="Call 1 percent",section__lte = 10,change_perc__gte = 3,opencrossed='Nil').order_by('section') 
+    putfifty = LiveEquityResult.objects.filter(strike="Put 1 percent",section__lte = 10,change_perc__lte = -3,opencrossed='Nil').order_by('section')  
+
+    callCrossed_below_three = LiveEquityResult.objects.filter(strike="Call Crossed",section__lte = 10,opencrossed='Nil',change_perc__gte = 1.5,change_perc__lte = 3).order_by('-time')
+    putCrossed_below_three = LiveEquityResult.objects.filter(strike="Put Crossed",section__lte = 10,opencrossed='Nil',change_perc__lte = -1.5,change_perc__gte = -3).order_by('-time')
+
+    call_fifty_below_three  = LiveEquityResult.objects.filter(change_perc__gte = 1.5,change_perc__lte = 3,opencrossed='Nil').filter(strike="Call 1 percent",section__lte = 10,below_three=True).order_by('section')  
+    put_fifty_below_three = LiveEquityResult.objects.filter(change_perc__lte = -1.5,change_perc__gte = -3,opencrossed='Nil').filter(strike="Put 1 percent",section__lte = 10,below_three=True).order_by('section')  
+
+    nowTime = datetime.now(timezone('Asia/Kolkata')).time()
+    section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), equ_time(10,15)).time()
+
+    open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
+    section_remove_list = []
+
+    # excluding section symbols
+    if nowTime > section_check_time:
+        section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
+
+    remove_list = open_remove_list + section_remove_list
+
+    gain = LiveSegment.objects.filter(segment__in=["above"]).order_by('-change_perc')
+    loss = LiveSegment.objects.filter(segment__in=["below"]).order_by('change_perc')
+    #################
+    
+    try:
+        current_time = LiveOITotalAllSymbol.objects.order_by('-time')[:1]
+        option_timing = current_time[0].time
+        option_symbol = current_time[0].symbol
+    except:
+        option_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
+        option_symbol = ''
+
+    try:
+        current_time = LiveSegment.objects.order_by('time')[:1]
+        equity_timing = current_time[0].time
+    except:
+        equity_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
+
+    try:
+        last_run_time = Totalruntime.objects.order_by('-end_time')[:1]
+        last_run_timing = round(last_run_time[0].total_run, 2) 
+        total_symbol_count = last_run_time[0].total_symbols
+    except:
+        last_run_timing = equ_timing.combine(equ_timing.now(timezone('Asia/Kolkata')), equ_time(0,00)).time()
+        total_symbol_count = 0
+    
+    livehigh = LiveHighLow.objects.filter(cross = "call")
+    livehighlow = LiveHighLow.objects.filter(cross = "put")
+    print(f"live low count {len(livehighlow)}")
+	
+    call_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__gte = 1.5).values_list('symbol', flat=True)) 
+    put_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__lte = -1.5).values_list('symbol', flat=True)) 
+
+    return render(request,"equityprint.html",{'call_check_list':call_check_list,'put_check_list':put_check_list,'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+
+
 def sample(request):
 
     import requests
