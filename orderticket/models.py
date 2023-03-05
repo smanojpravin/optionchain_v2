@@ -30,6 +30,46 @@ from django.utils import timezone
 #         return f"{self.customer.name }"
 
 
+class FirstVolume(models.Model):
+    symbol = models.CharField(max_length=20)
+    time = models.DateTimeField(auto_now_add=True)
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.max_call_volume} - {self.max_put_volume} - {self.max_call_volume_strike} - {self.max_put_volume_strike}"
+    class Meta:
+        app_label = 'orderticket'
+
+class LiveVolume(models.Model):
+    symbol = models.CharField(max_length=20)
+    time = models.DateTimeField(auto_now_add=True)
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.max_call_volume} - {self.max_put_volume} - {self.max_call_volume_strike} - {self.max_put_volume_strike}"
+    class Meta:
+        app_label = 'orderticket'
+
+class HistoryVolume(models.Model):
+    symbol = models.CharField(max_length=20)
+    time = models.DateTimeField(auto_now_add=True)
+    max_call_volume =  models.IntegerField(default=0)
+    max_put_volume =  models.IntegerField(default=0)
+    max_call_volume_strike = models.IntegerField(default=0)
+    max_put_volume_strike = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.max_call_volume} - {self.max_put_volume} - {self.max_call_volume_strike} - {self.max_put_volume_strike}"
+    class Meta:
+        app_label = 'orderticket'
+
+
 class EquityThree(models.Model):
     symbol = models.CharField(max_length=20)
     time = models.TimeField(auto_now_add=False)
