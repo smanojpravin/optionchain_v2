@@ -528,7 +528,7 @@
 </div>
 
 <div class="col-md-4 even">
-  <h4 style="text-align:center;color:white;font-size:medium;background-color: #274E13;" class="badge text-wrap">IB High </h4><b></b>
+  <h4 style="text-align:center;color:white;font-size:medium;background-color: #274E13;" class="badge text-wrap">OPEN - CALL </h4><b></b>
 
   {% if livehigh|length == 0 %}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -539,18 +539,30 @@
   <div class="fixTableHead">
   
 
-
-    <nav aria-label="breadcrumb">
+    <!-- open IB removed, may be added later -->
+    <!-- <nav aria-label="breadcrumb">
       <ul class="list-group">
         {% for value in livehigh %}
         {%if value.symbol not in remove_list%}
           {%if value.symbol in call_check_list %}
         <li style="font-size:13px;padding:0px" class="list-group-item">
-          <!-- <b class="badge badge-success">{{ value.symbol }}</b>  -->
           <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
           | <b>High:{{ value.high|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
            {% endif %}
         {% endif %}
+        {% endfor %}
+        </ul>
+
+
+
+    </nav> -->
+
+    <nav aria-label="breadcrumb">
+      <ul class="list-group">
+        {% for value in OpencallCrossed %}
+        <li style="font-size:13px;padding:0px" class="list-group-item">
+          <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
+          | <b>High:{{ value.high|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
         {% endfor %}
         </ul>
 
@@ -649,7 +661,7 @@
 
 {{newlivelow}}
 <div class="col-md-4 even">
-  <h2 style="text-align:center;color:white;font-size:medium;background-color: #660000;" class="badge text-wrap">IB Low</h2><b></b>
+  <h2 style="text-align:center;color:white;font-size:medium;background-color: #660000;" class="badge text-wrap">OPEN - PUT</h2><b></b>
 
   {% if livehighlow|length == 0 %}
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -660,22 +672,35 @@
   <div class="fixTableHead">
   
 
-
-    <nav aria-label="breadcrumb">
+    <!-- IB removed may be added later -->
+    <!-- <nav aria-label="breadcrumb">
 
       <ul class="list-group">
         {% for value in livehighlow %}
         {%if value.symbol not in remove_list%}
           {%if value.symbol in put_check_list %}
         <li style="font-size:13px;padding:0px" class="list-group-item">
-          <!-- <b class="badge badge-danger">{{ value.symbol }}</b>  -->
           <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
           | <b>Low:{{ value.low|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
           {% endif %}
         {% endif %}
         {% endfor %}
         </ul>
+    </nav> -->
+
+
+    <nav aria-label="breadcrumb">
+
+      <ul class="list-group">
+        {% for value in OpenputCrossed %}
+        <li style="font-size:13px;padding:0px" class="list-group-item">
+          <!-- <b class="badge badge-danger">{{ value.symbol }}</b>  -->
+          <button type="button" id="1" name="1" class="btn btn-outline-primary" value="{{ value.symbol }}"><b>{{ value.symbol }}</b></button>
+          | <b>Low:{{ value.low|floatformat:"2" }}</b> | <b>LTP:{{ value.ltp|floatformat:"2" }}</b></li>
+        {% endfor %}
+        </ul>
     </nav>
+
 
 
   
