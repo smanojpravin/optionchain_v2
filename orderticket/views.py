@@ -35,6 +35,7 @@ from datetime import time as equ_time
 from pytz import timezone
 from django.db.models import Q
 
+
 @login_required(login_url='login')
 def secondhome(request):
     today = datetime.today()
@@ -195,6 +196,10 @@ def secondequity(request):
     section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), equ_time(10,15)).time()
 
     open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
+
+    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__gte = 1, opencrossed='call').order_by('-time')
+    OpenputCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__lte = -1,opencrossed='put').order_by('-time')
+
     section_remove_list = []
 
     # excluding section symbols
@@ -236,8 +241,7 @@ def secondequity(request):
     call_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__gte = 1.5).values_list('symbol', flat=True)) 
     put_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__lte = -1.5).values_list('symbol', flat=True)) 
 
-    return render(request,"equityprint.html",{'call_check_list':call_check_list,'put_check_list':put_check_list,'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
-
+    return render(request,"equityprint.html",{'OpencallCrossed':OpencallCrossed, 'OpenputCrossed':OpenputCrossed, 'call_check_list':call_check_list,'put_check_list':put_check_list,'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 def sample(request):
 
@@ -297,7 +301,6 @@ def loginPage(request):
 
 	context = {}
 	return render(request, 'login.html', context)
-
 
 def logout(request):
 	
@@ -771,15 +774,19 @@ def optionChain(request):
     print(LiveChangeOI)
     LiveChangePercentOI = LiveOIPercentChange.objects.filter(symbol=symbol)
     print(LiveChangePercentOI)
+    LiveChangeVolume = LiveVolume.objects.filter(symbol=symbol)
+    print(LiveChangeVolume)
 
     # History data
     HistoryOITot = HistoryOITotal.objects.filter(symbol=symbol).order_by('-time')
     HistoryOIChg = HistoryOIChange.objects.filter(symbol=symbol).order_by('-time')
     HistoryOIPercentChg = HistoryOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
+    HistoryVolumeChg = HistoryVolume.objects.filter(symbol=symbol).order_by('-time')
 
     FirstOITot = FirstLiveOITotal.objects.filter(symbol=symbol).order_by('-time')
     FirstOIChg = FirstLiveOIChange.objects.filter(symbol=symbol).order_by('-time')
     FirstOIPercentChg = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('-time')
+    FirstVolumedata = FirstVolume.objects.filter(symbol=symbol).order_by('-time')
 
 
     if len(FirstOITot) > 0:
@@ -799,6 +806,12 @@ def optionChain(request):
     else:
         early_percent_change = FirstLiveOIPercentChange.objects.filter(symbol=symbol).order_by('time')[:1]
 	
+    if len(FirstVolumedata) > 0:
+        early_volume_change = FirstVolume.objects.filter(symbol=symbol).order_by('time')[:1]
+        print(early_volume_change)
+    else:
+        early_volume_change = FirstVolume.objects.filter(symbol=symbol).order_by('time')[:1]
+    
 
     from datetime import datetime
     import pytz
@@ -840,7 +853,7 @@ def optionChain(request):
     livehighlow = LiveHighLow.objects.filter(symbol=symbol)
     
     if LiveOI:
-        return render(request, 'optionChainSingleSymbol.html', {'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
+        return render(request, 'optionChainSingleSymbol.html', {'LiveChangeVolume':LiveChangeVolume, 'HistoryVolumeChg':HistoryVolumeChg,'early_volume_change':early_volume_change,'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
     else:
         return render(request, 'optionChainNoData.html')
 
