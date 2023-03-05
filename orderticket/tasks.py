@@ -28,12 +28,12 @@ def create_currency():
 
     from datetime import datetime, time
     # ----- old data deletion ----
-    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
-    nsepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).date()
+    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
+    nsepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).date()
     LiveSegment.objects.filter(time__lte = pastDate).delete()
     LiveSegment.objects.filter(date__lt = nsepadDate).delete()
-    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16))
-    segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
+    pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17))
+    segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
 
     #LiveEquityResult.objects.all().delete()
     TestEquityResult.objects.filter(date__lte = pastDate).delete()
@@ -46,9 +46,9 @@ def create_currency():
     EquityThree.objects.filter(date__lt = nsepadDate).delete()
     #  -----
     
-    startTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16)).time()
+    startTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
     endTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(22,1)).time()
-    market_stop_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(16,1)).time()
+    market_stop_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(17,1)).time()
     nowTime = datetime.now(timezone('Asia/Kolkata')).time()
     section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(10,15)).time()
     print(f"{nowTime} -{startTime}-{endTime}")
@@ -355,7 +355,6 @@ def create_currency():
                     celtt = final_df.iloc[0]['ltt']
                     peltt = final_df.iloc[0]['ltt']
 
-
                 minvalue = ce.loc[ce['strike'] != 0].sort_values('strike', ascending=True)
                 ceindex = minvalue.iloc[0].strike
                 inde = pe[pe['strike']==ceindex].index.values
@@ -465,7 +464,7 @@ def create_currency():
             
             
             from datetime import datetime, time
-            pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,16))
+            pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17))
 
             #LiveEquityResult.objects.all().delete()
             LiveOITotalAllSymbol.objects.filter(time__lte = pastDate).delete()
@@ -473,10 +472,13 @@ def create_currency():
             HistoryOIChange.objects.filter(time__lte = pastDate).delete()
             HistoryOITotal.objects.filter(time__lte = pastDate).delete()
             HistoryOIPercentChange.objects.filter(time__lte = pastDate).delete()
+            HistoryVolume.objects.filter(time__lte = pastDate).delete()
+            
             # Deleting live data
             LiveOITotal.objects.filter(time__lte = pastDate).delete()
             LiveOIChange.objects.filter(time__lte = pastDate).delete()
             LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
+            LiveVolume.objects.filter(time__lte = pastDate).delete()
             # deleting past first data
     #         FirstLiveOITotal.objects.filter(time__lte = pastDate).delete()
     #         FirstLiveOIChange.objects.filter(time__lte = pastDate).delete()
@@ -492,10 +494,49 @@ def create_currency():
 #                 TotalOICreation = FirstLiveOIChange(call_final=OIChangeValue["call_final"], put_final=OIChangeValue["put_final"],max_ceoi_strike=OIChangeValue["max_ceoi_strike"], put_max_ceoi_strike=OIChangeValue["put_max_ceoi_strike"],call_percentage=OIChangeValue["call_percentage"],put_percentage=OIChangeValue["put_percentage"],call_ceoi_total=OIChangeValue["call_ceoi_total"],put_ceoi_total=OIChangeValue["put_ceoi_total"],time=OIChangeValue['celtt'],call1=OIChangeValue['ceoi1'],call2=OIChangeValue['ceoi2'],put1=OIChangeValue['peoi1'],put2=OIChangeValue['peoi2'],callstrike=OIChangeValue['cestrike'],putstrike=OIChangeValue['pestrike'],symbol=item,expiry=dte)
                 TotalOICreation.save()
 
+            if FirstVolume.objects.filter(symbol=item).count() == 0:
+                FirstVolumeCreation = FirstVolume(max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+#                 TotalOICreation = FirstLiveOIChange(call_final=OIChangeValue["call_final"], put_final=OIChangeValue["put_final"],max_ceoi_strike=OIChangeValue["max_ceoi_strike"], put_max_ceoi_strike=OIChangeValue["put_max_ceoi_strike"],call_percentage=OIChangeValue["call_percentage"],put_percentage=OIChangeValue["put_percentage"],call_ceoi_total=OIChangeValue["call_ceoi_total"],put_ceoi_total=OIChangeValue["put_ceoi_total"],time=OIChangeValue['celtt'],call1=OIChangeValue['ceoi1'],call2=OIChangeValue['ceoi2'],put1=OIChangeValue['peoi1'],put2=OIChangeValue['peoi2'],callstrike=OIChangeValue['cestrike'],putstrike=OIChangeValue['pestrike'],symbol=item,expiry=dte)
+                FirstVolumeCreation.save()
+
             if FirstLiveOIPercentChange.objects.filter(symbol=item).count() == 0:
                 ChangeOIPercentCreation = FirstLiveOIPercentChange(time=percentChange['celtt'],call1=percentChange['ceoi1'],call2=percentChange['ceoi2'],put1=percentChange['peoi1'],put2=percentChange['peoi2'],callstrike=percentChange['cestrike'],putstrike=percentChange['pestrike'],symbol=item,expiry=dte)
                 ChangeOIPercentCreation.save()
         
+
+
+            # volume check:
+            value0 = LiveVolume.objects.filter(symbol=item)
+            
+            print("LiveVolume data - Started")
+            if len(value0) > 0:
+
+                if (value0[0].max_call_volume_strike != OIChangeValue['max_cal_volume_strike']) or (value0[0].max_put_volume_strike != OIChangeValue['max_put_volume_strike']):
+
+
+                    ChangeVolumeHistory = HistoryVolume(time=value0[0].time, max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"])
+                    ChangeVolumeHistory.save()
+
+                    # deleting live table data
+                    LiveVolume.objects.filter(symbol=item).delete()
+
+                    # Creating in live data
+                    ChangeVolumeCreation = LiveVolume(max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], call_final=OIChangeValue["call_final"], put_final=OIChangeValue["put_final"],max_ceoi_strike=OIChangeValue["max_ceoi_strike"], put_max_ceoi_strike=OIChangeValue["put_max_ceoi_strike"],call_percentage=OIChangeValue["call_percentage"],put_percentage=OIChangeValue["put_percentage"],call_ceoi_total=OIChangeValue["call_ceoi_total"],put_ceoi_total=OIChangeValue["put_ceoi_total"],time=OIChangeValue['celtt'],call1=OIChangeValue['ceoi1'],call2=OIChangeValue['ceoi2'],put1=OIChangeValue['peoi1'],put2=OIChangeValue['peoi2'],callstrike=OIChangeValue['cestrike'],putstrike=OIChangeValue['pestrike'],symbol=item,expiry=dte)
+                    ChangeVolumeCreation.save() 
+
+                else:
+                    # deleting live table data
+                    LiveVolume.objects.filter(symbol=item).delete()
+
+                    # Creating in live data
+                    ChangeVolumeCreation = LiveVolume(max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                    ChangeVolumeCreation.save() 
+            else:
+                ChangeOICreation = LiveVolume(max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                ChangeOICreation.save()
+
+
+
             value1 = LiveOIChange.objects.filter(symbol=item)
             
             print("LiveOIChange data - Started")
@@ -644,7 +685,7 @@ def create_currency():
         TrueDatausername = 'tdws127'
         TrueDatapassword = 'saaral@127'
 
-        expiry = "29-Mar-2023"
+        expiry = "23-Feb-2023"
         dte = dt.strptime(expiry, '%d-%b-%Y')
         td_obj = TD('tdwsp127', 'saaral@127', log_level= logging.ERROR)
 
