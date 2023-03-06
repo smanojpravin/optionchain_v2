@@ -532,9 +532,8 @@ def create_currency():
                     ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeCreation.save() 
             else:
-                ChangeOICreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
-                ChangeOICreation.save()
-
+                ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                ChangeVolumeCreation.save() 
 
 
             value1 = LiveOIChange.objects.filter(symbol=item)
