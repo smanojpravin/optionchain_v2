@@ -511,20 +511,24 @@ def create_currency():
             print("LiveVolume data - Started")
             if len(value0) > 0:
 
+                print("################## Volume - Before if Condition ")
                 if (value0[0].max_call_volume_strike != OIChangeValue['max_cal_volume_strike']) or (value0[0].max_put_volume_strike != OIChangeValue['max_put_volume_strike']):
 
-
+                    
+                    print("################## Volume - History Create ")
                     ChangeVolumeHistory = HistoryVolume(time=value0[0].time, max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"])
                     ChangeVolumeHistory.save()
 
                     # deleting live table data
                     LiveVolume.objects.filter(symbol=item).delete()
 
+                    print("################## Volume - History Live ")
                     # Creating in live data
                     ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeCreation.save() 
 
                 else:
+                    print("################## Volume - History Live else Condition ")
                     # deleting live table data
                     LiveVolume.objects.filter(symbol=item).delete()
 
@@ -532,8 +536,10 @@ def create_currency():
                     ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeCreation.save() 
             else:
-                ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
-                ChangeVolumeCreation.save() 
+                print("################## Volume - Live value insertion ")
+                ChangeOICreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                ChangeOICreation.save()
+                print("################## Volume - Live value insertion Completed")
 
 
             value1 = LiveOIChange.objects.filter(symbol=item)
