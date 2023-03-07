@@ -475,7 +475,7 @@ def create_currency():
             HistoryVolume.objects.filter(time__lte = pastDate).delete()
             
             # Deleting live data
-            LiveOITotal.objects.filter(time__lte = pastDate).delete()
+            #LiveOITotal.objects.filter(time__lte = pastDate).delete()
             LiveOIChange.objects.filter(time__lte = pastDate).delete()
             LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
             LiveVolume.objects.filter(time__lte = pastDate).delete()
