@@ -53,40 +53,40 @@ def create_currency():
     section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(10,15)).time()
     print(f"{nowTime} -{startTime}-{endTime}")
     
-    if nowTime > endTime:
-        print("Market ended")
-        print(f"{nowTime} - {endTime}")
-        LiveOITotalAllSymbol.objects.all().delete()
-        # # Deleting past historical data in the database
-        HistoryOIChange.objects.all().delete()
-        HistoryOITotal.objects.all().delete()
-        HistoryOIPercentChange.objects.all().delete()
-        # Deleting live data
-        LiveOITotal.objects.all().delete()
-        LiveOIChange.objects.all().delete()
-        LiveOIPercentChange.objects.all().delete()
-        # deleting past first data
-        FirstLiveOITotal.objects.all().delete()
-        FirstLiveOIChange.objects.all().delete()
-        FirstLiveOIPercentChange.objects.all().delete()
-        Totalruntime.objects.all().delete()
+#     if nowTime > endTime:
+#         print("Market ended")
+#         print(f"{nowTime} - {endTime}")
+#         LiveOITotalAllSymbol.objects.all().delete()
+#         # # Deleting past historical data in the database
+#         HistoryOIChange.objects.all().delete()
+#         HistoryOITotal.objects.all().delete()
+#         HistoryOIPercentChange.objects.all().delete()
+#         # Deleting live data
+#         LiveOITotal.objects.all().delete()
+#         LiveOIChange.objects.all().delete()
+#         LiveOIPercentChange.objects.all().delete()
+#         # deleting past first data
+#         FirstLiveOITotal.objects.all().delete()
+#         FirstLiveOIChange.objects.all().delete()
+#         FirstLiveOIPercentChange.objects.all().delete()
+#         Totalruntime.objects.all().delete()
 
-    elif nowTime < startTime:
-        print("Market not started- deleting old data")
-        LiveOITotalAllSymbol.objects.all().delete()
-        # # Deleting past historical data in the database
-        HistoryOIChange.objects.all().delete()
-        HistoryOITotal.objects.all().delete()
-        HistoryOIPercentChange.objects.all().delete()
-        # Deleting live data
-        LiveOITotal.objects.all().delete()
-        LiveOIChange.objects.all().delete()
-        LiveOIPercentChange.objects.all().delete()
-        # deleting past first data
-        FirstLiveOITotal.objects.all().delete()
-        FirstLiveOIChange.objects.all().delete()
-        FirstLiveOIPercentChange.objects.all().delete()
-        Totalruntime.objects.all().delete()
+#     elif nowTime < startTime:
+#         print("Market not started- deleting old data")
+#         LiveOITotalAllSymbol.objects.all().delete()
+#         # # Deleting past historical data in the database
+#         HistoryOIChange.objects.all().delete()
+#         HistoryOITotal.objects.all().delete()
+#         HistoryOIPercentChange.objects.all().delete()
+#         # Deleting live data
+#         LiveOITotal.objects.all().delete()
+#         LiveOIChange.objects.all().delete()
+#         LiveOIPercentChange.objects.all().delete()
+#         # deleting past first data
+#         FirstLiveOITotal.objects.all().delete()
+#         FirstLiveOIChange.objects.all().delete()
+#         FirstLiveOIPercentChange.objects.all().delete()
+#         Totalruntime.objects.all().delete()
 
     
     if nowTime > startTime and nowTime < market_stop_time:
