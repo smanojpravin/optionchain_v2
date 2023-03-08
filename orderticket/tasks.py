@@ -472,7 +472,7 @@ def create_currency():
             HistoryOIChange.objects.filter(time__lte = pastDate).delete()
             HistoryOITotal.objects.filter(time__lte = pastDate).delete()
             HistoryOIPercentChange.objects.filter(time__lte = pastDate).delete()
-            HistoryVolume.objects.filter(time__lte = pastDate).delete()
+            #HistoryVolume.objects.filter(time__lte = pastDate).delete()
             
             # Deleting live data
             LiveOITotal.objects.filter(time__lte = pastDate).delete()
@@ -516,7 +516,7 @@ def create_currency():
 
                     
                     print("################## Volume - History Create ")
-                    ChangeVolumeHistory = HistoryVolume(time=value0[0].time, max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"])
+                    ChangeVolumeHistory = HistoryVolume(time=value0[0].time, max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeHistory.save()
 
                     # deleting live table data
