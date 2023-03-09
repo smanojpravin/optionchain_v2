@@ -705,6 +705,10 @@ def equity(request):
     open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
     section_remove_list = []
 
+    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__gte = 0, opencrossed='call').order_by('-time')
+    OpenputCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__lte = 0,opencrossed='put').order_by('-time')
+
+
     # excluding section symbols
     if nowTime > section_check_time:
         section_remove_list = list(LiveEquityResult.objects.filter(section__gte = 10).values_list('symbol', flat=True))
@@ -744,7 +748,7 @@ def equity(request):
     call_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__gte = 1.5).values_list('symbol', flat=True)) 
     put_check_list = list(LiveEquityResult.objects.filter(strike__in=["Call Crossed","Put Crossed","Call 1 percent","Put 1 percent"],section__lte = 10,change_perc__lte = -1.5).values_list('symbol', flat=True)) 
 
-    return render(request,"equity.html",{'call_check_list':call_check_list,'put_check_list':put_check_list,'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
+    return render(request,"equity.html",{'OpencallCrossed':OpencallCrossed, 'OpenputCrossed':OpenputCrossed,'call_check_list':call_check_list,'put_check_list':put_check_list,'livehigh':livehigh,'livehighlow':livehighlow,'total_symbol_count':total_symbol_count,'remove_list':remove_list,'callCrossed':callCrossed,'callCrossed_count':callCrossed_count,'putCrossed':putCrossed,'callfifty':callfifty,'putfifty':putfifty,'callCrossed_below_three':callCrossed_below_three,'putCrossed_below_three':putCrossed_below_three,'call_fifty_below_three':call_fifty_below_three,'put_fifty_below_three':put_fifty_below_three,'last_run_timing':last_run_timing,'option_symbol':option_symbol,'option_timing':option_timing,'equity_timing':equity_timing,'three_list':three_list,'callCrossed_odd':callCrossed_odd,'callCrossed_even':callCrossed_even,'putCrossed_even':putCrossed_even,'putCrossed_odd':putCrossed_odd,'gain':gain,'loss':loss,'OITotalValue': OITotalValue,'OIChangeValue': OIChangeValue,'value1':value1,'value2':value2,'strikeGap':strikeGap,'callOnePercent':callOnePercent,'putOnePercent':putOnePercent,'putHalfPercent':putHalfPercent,'callHalfPercent':callHalfPercent})
 
 #5 Option chain Section - selected symbol calculation
 def optionChain(request):
