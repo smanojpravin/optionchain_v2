@@ -30,23 +30,23 @@ def create_currency():
     # ----- old data deletion ----
     pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
     nsepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).date()
-    LivepastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
-    LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).date()
+    #LivepastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
+    #LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).date()
     
-    LiveSegment.objects.filter(time__lte = LivepastDate).delete()
-    LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
+    #LiveSegment.objects.filter(time__lte = LivepastDate).delete()
+    #LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
     pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17))
     segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
 
-    LivepastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59))
-    LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
+    #LivepastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59))
+    #LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
 
     
     #LiveEquityResult.objects.all().delete()
     TestEquityResult.objects.filter(date__lte = pastDate).delete()
     #LiveEquityResult.objects.filter(date__lte = pastDate).delete()
-    LiveSegment.objects.filter(time__lte = LivepastDate).delete()
-    LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
+    #LiveSegment.objects.filter(time__lte = LivepastDate).delete()
+    #LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
     SuperLiveSegment.objects.filter(time__lte = segpastDate).delete()
     SuperLiveSegment.objects.filter(date__lt = nsepadDate).delete()
     EquityThree.objects.filter(time__lte = segpastDate).delete()
