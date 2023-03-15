@@ -54,7 +54,7 @@ def create_currency():
     #  -----
     
     startTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
-    endTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(22,1)).time()
+    endTime = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(23,1)).time()
     market_stop_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(17,1)).time()
     nowTime = datetime.now(timezone('Asia/Kolkata')).time()
     section_check_time = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(10,15)).time()
