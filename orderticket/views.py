@@ -157,7 +157,7 @@ def seconoptionChain(request):
     livehighlow = LiveHighLow.objects.filter(symbol=symbol)
     
     if LiveOI:
-        return render(request, 'optionChainSingleSymbolprint.html', {'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
+        return render(request, 'optionChainSingleSymbolprint.html', {'FirstVolumedata':FirstVolumedata, 'LiveChangeVolume':LiveChangeVolume, 'HistoryVolumeChg':HistoryVolumeChg, 'livehighlow':livehighlow,'option_symbol':option_symbol,'option_timing':option_timing,'early_total_oi':early_total_oi,'early_change_oi':early_change_oi,'early_percent_change':early_percent_change,'symbol_lot':symbol_lot,'dateToday':dateToday,'LiveChangePercentOI':LiveChangePercentOI,'HistoryOIPercentChg':HistoryOIPercentChg,'liveEqui':liveEqui,'symbol':symbol,'OITotalValue':LiveOI,'OIChangeValue':LiveChangeOI,'HistoryOITot':HistoryOITot,'HistoryOIChg':HistoryOIChg})
     else:
         return render(request, 'optionChainNoData.html')
 
