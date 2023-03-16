@@ -523,7 +523,7 @@ def create_currency():
 
                     
                     print("################## Volume - History Create ")
-                    ChangeVolumeHistory = HistoryVolume(time=value0[0].time, max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                    ChangeVolumeHistory = HistoryVolume(time=dt.strptime(str(dt.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S')), "%Y-%m-%d %H:%M:%S").time(), max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeHistory.save()
 
                     # deleting live table data
@@ -531,7 +531,7 @@ def create_currency():
 
                     print("################## Volume - History Live ")
                     # Creating in live data
-                    ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                    ChangeVolumeCreation = LiveVolume(time=dt.strptime(str(dt.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S')), "%Y-%m-%d %H:%M:%S").time(), max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeCreation.save() 
 
                 else:
@@ -540,11 +540,11 @@ def create_currency():
                     LiveVolume.objects.filter(symbol=item).delete()
 
                     # Creating in live data
-                    ChangeVolumeCreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                    ChangeVolumeCreation = LiveVolume(time=dt.strptime(str(dt.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S')), "%Y-%m-%d %H:%M:%S").time(), max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeCreation.save() 
             else:
                 print("################## Volume - Live value insertion ")
-                ChangeOICreation = LiveVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                ChangeOICreation = LiveVolume(time=dt.strptime(str(dt.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S')), "%Y-%m-%d %H:%M:%S").time(), max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                 ChangeOICreation.save()
                 print("################## Volume - Live value insertion Completed")
 
