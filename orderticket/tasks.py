@@ -519,7 +519,7 @@ def create_currency():
             if len(value0) > 0:
 
                 print("################## Volume - Before if Condition ")
-                if (value0[0].max_call_volume_strike != OIChangeValue['max_cal_volume_strike']) or (value0[0].max_put_volume_strike != OIChangeValue['max_put_volume_strike']):
+                if (value0[0].max_call_volume_strike != int(OIChangeValue['max_cal_volume_strike'])) or (value0[0].max_put_volume_strike != int(OIChangeValue['max_put_volume_strike'])):
 
                     
                     print("################## Volume - History Create ")
