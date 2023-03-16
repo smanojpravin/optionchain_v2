@@ -523,7 +523,7 @@ def create_currency():
 
                     
                     print("################## Volume - History Create ")
-                    ChangeVolumeHistory = HistoryVolume(time=time=value0[0], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                    ChangeVolumeHistory = HistoryVolume(time=value0[0],max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
                     ChangeVolumeHistory.save()
 
                     # deleting live table data
