@@ -87,7 +87,12 @@ def seconoptionChain(request):
     print(LiveChangeOI)
     LiveChangePercentOI = LiveOIPercentChange.objects.filter(symbol=symbol)
     print(LiveChangePercentOI)
-
+    LiveChangeVolume = LiveVolume.objects.filter(symbol=symbol)
+    print(LiveChangeVolume)
+    # History data
+    HistoryVolumeChg = HistoryVolume.objects.filter(symbol=symbol).order_by('-time')
+    FirstVolumedata = FirstVolume.objects.filter(symbol=symbol).order_by('-time')
+	
     # History data
     HistoryOITot = HistoryOITotal.objects.filter(symbol=symbol).order_by('-time')
     HistoryOIChg = HistoryOIChange.objects.filter(symbol=symbol).order_by('-time')
