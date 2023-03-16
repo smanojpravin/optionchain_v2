@@ -197,8 +197,8 @@ def secondequity(request):
 
     open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
 
-    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__gte = 1, opencrossed='call').order_by('-time')
-    OpenputCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__lte = -1,opencrossed='put').order_by('-time')
+    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__gte = 0, opencrossed='call').order_by('-time')
+    OpenputCrossed = LiveEquityResult.objects.filter(strike="Put Crossed",change_perc__lte = 0,opencrossed='put').order_by('-time')
 
     section_remove_list = []
 
@@ -705,8 +705,8 @@ def equity(request):
     open_remove_list = list(LiveEquityResult.objects.filter(~Q(opencrossed='Nil')).values_list('symbol', flat=True))
     section_remove_list = []
 
-    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__gte = 0, opencrossed='call').order_by('-time')
-    OpenputCrossed = LiveEquityResult.objects.filter(strike="Call Crossed",change_perc__lte = 0,opencrossed='put').order_by('-time')
+    OpencallCrossed = LiveEquityResult.objects.filter(strike="Call Crossed", opencrossed='call').order_by('-time')
+    OpenputCrossed = LiveEquityResult.objects.filter(strike="Put Crossed", opencrossed='put').order_by('-time')
 
 
     # excluding section symbols
