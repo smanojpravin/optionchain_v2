@@ -32,7 +32,7 @@ from django.utils import timezone
 
 class FirstVolume(models.Model):
     symbol = models.CharField(max_length=20)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=False)
     max_call_volume =  models.IntegerField(default=0)
     max_put_volume =  models.IntegerField(default=0)
     max_call_volume_strike = models.IntegerField(default=0)
@@ -45,7 +45,7 @@ class FirstVolume(models.Model):
 
 class LiveVolume(models.Model):
     symbol = models.CharField(max_length=20)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=False)
     max_call_volume =  models.IntegerField(default=0)
     max_put_volume =  models.IntegerField(default=0)
     max_call_volume_strike = models.IntegerField(default=0)
@@ -58,7 +58,7 @@ class LiveVolume(models.Model):
 
 class HistoryVolume(models.Model):
     symbol = models.CharField(max_length=20)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=False)
     max_call_volume =  models.IntegerField(default=0)
     max_put_volume =  models.IntegerField(default=0)
     max_call_volume_strike = models.IntegerField(default=0)
