@@ -502,7 +502,7 @@ def create_currency():
                 TotalOICreation.save()
 
             if FirstVolume.objects.filter(symbol=item).count() == 0:
-                FirstVolumeCreation = FirstVolume(max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
+                FirstVolumeCreation = FirstVolume(time=OIChangeValue['celtt'], max_call_volume = OIChangeValue["max_cal_volume"], max_put_volume = OIChangeValue["max_put_volume"],  max_call_volume_strike = OIChangeValue["max_cal_volume_strike"],  max_put_volume_strike = OIChangeValue["max_put_volume_strike"], symbol=item)
 #                 TotalOICreation = FirstLiveOIChange(call_final=OIChangeValue["call_final"], put_final=OIChangeValue["put_final"],max_ceoi_strike=OIChangeValue["max_ceoi_strike"], put_max_ceoi_strike=OIChangeValue["put_max_ceoi_strike"],call_percentage=OIChangeValue["call_percentage"],put_percentage=OIChangeValue["put_percentage"],call_ceoi_total=OIChangeValue["call_ceoi_total"],put_ceoi_total=OIChangeValue["put_ceoi_total"],time=OIChangeValue['celtt'],call1=OIChangeValue['ceoi1'],call2=OIChangeValue['ceoi2'],put1=OIChangeValue['peoi1'],put2=OIChangeValue['peoi2'],callstrike=OIChangeValue['cestrike'],putstrike=OIChangeValue['pestrike'],symbol=item,expiry=dte)
                 FirstVolumeCreation.save()
 
