@@ -44,9 +44,9 @@ def create_currency():
     
     #LiveEquityResult.objects.all().delete()
     TestEquityResult.objects.filter(date__lte = pastDate).delete()
-    #LiveEquityResult.objects.filter(date__lte = pastDate).delete()
-    #LiveSegment.objects.filter(time__lte = LivepastDate).delete()
-    #LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
+    LiveEquityResult.objects.filter(date__lte = pastDate).delete()
+    LiveSegment.objects.filter(time__lte = pastDate).delete()
+    LiveSegment.objects.filter(date__lt = nsepadDate).delete()
     SuperLiveSegment.objects.filter(time__lte = segpastDate).delete()
     SuperLiveSegment.objects.filter(date__lt = nsepadDate).delete()
     EquityThree.objects.filter(time__lte = segpastDate).delete()
