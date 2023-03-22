@@ -33,8 +33,8 @@ def create_currency():
     #LivepastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
     #LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).date()
     
-    LiveSegment.objects.filter(time__lte = LivepastDate).delete()
-    LiveSegment.objects.filter(date__lt = LivensepadDate).delete()
+    LiveSegment.objects.filter(time__lte = pastDate).delete()
+    LiveSegment.objects.filter(date__lt = nsepadDate).delete()
     pastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17))
     segpastDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(9,17)).time()
 
