@@ -486,6 +486,7 @@ def create_currency():
             LiveOIChange.objects.filter(time__lte = pastDate).delete()
             LiveOIPercentChange.objects.filter(time__lte = pastDate).delete()
             LiveVolume.objects.filter(time__lte = pastDate).delete()
+            FirstVolume.objects.filter(time__lte = pastDate).delete()
             # deleting past first data
     #         FirstLiveOITotal.objects.filter(time__lte = pastDate).delete()
     #         FirstLiveOIChange.objects.filter(time__lte = pastDate).delete()
