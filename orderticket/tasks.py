@@ -42,7 +42,7 @@ def create_currency():
     #LivensepadDate = datetime.combine(datetime.now(timezone('Asia/Kolkata')), time(8,59)).time()
 
     
-    LiveEquityResult.objects.all().delete()
+    #LiveEquityResult.objects.all().delete()
     TestEquityResult.objects.filter(date__lte = pastDate).delete()
     LiveEquityResult.objects.filter(date__lte = pastDate).delete()
     #LiveSegment.objects.filter(time__lte = pastDate).delete()
