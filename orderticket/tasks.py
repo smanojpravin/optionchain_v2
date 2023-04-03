@@ -705,10 +705,10 @@ def create_currency():
         def pairwise(iterable):
             "s -> (s0, s1), (s2, s3), (s4, s5), ..."
             a = iter(iterable)
-            return zip(a, a, a)
+            return zip(a, a, a, a, a)
         # te.sleep(3)
-        for x, y, z in pairwise(fnolist):
-            print(f"{x}, {y}, {z}")
+        for x, y, z, a, b in pairwise(fnolist):
+            print(f"{x}, {y}, {z}, {a}, {b}")
             
             td_obj = TD('tdwsp127', 'saaral@127')
 
@@ -737,6 +737,10 @@ def create_currency():
             # print(f"Failed for {z}")
                 # continue
 
+            a_chain = td_obj.start_option_chain( a, dt(dte.year , dte.month , dte.day) ,chain_length = 75)
+
+            b_chain = td_obj.start_option_chain( b, dt(dte.year , dte.month , dte.day) ,chain_length = 75)
+
             te.sleep(2)
 
             # for req_id in req_ids:
@@ -760,6 +764,12 @@ def create_currency():
             nifty_chain_df = nifty_chain.get_option_chain()
             nifty_chain.stop_option_chain()
             
+            a_chain_df = a_chain.get_option_chain()
+            a_chain.stop_option_chain()
+
+            b_chain_df = b_chain.get_option_chain()
+            b_chain.stop_option_chain()
+
             td_obj.disconnect()
 
             try:
@@ -779,6 +789,19 @@ def create_currency():
                     continue 
             except:
                 print(f"Problem in {z}")
+
+            try:
+                if optionChainprocess(a_chain_df,a,dte) == False:
+                    continue 
+            except:
+                print(f"Problem in {a}")
+
+
+            try:
+                if optionChainprocess(b_chain_df,b,dte) == False:
+                    continue 
+            except:
+                print(f"Problem in {b}")
 
             # connection_check == 'end'
             print("Flow Completed")
